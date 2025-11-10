@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cái tiệm bán táo by Tina House – Giá nhanh (4 bảng)</title>
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsSAAALEgHS3X78AAAB40lEQVR4nO2aMW7bQBBFZ0f2D8k0CwSEjDgJw5S0gJqVJgQWkJ5P4A0J4gG5p9aDkG8o3b2pC7h7n2z0u0i9d4v8K5w3zXK0G1p5b5+v1r2b8fjO5uR3w0mF8vQf9cQk5yq4vC6sL3i8Kj8VmlLZ8m7q1B2K1bQ3oWw7Cw4I5U6bJ3V6l3H2m7eyEo6Wb3Tt7JcV3KQkS6G0hU6m0L3X0d2vC2qV9IYh2m5JjG2kq3b6h1dBvV7MgdY4r5cV2l7Vv8pYk3v7YkJm0z1mJ1m3dWyfV3vY0kqYl4lJf3w1g2iWv9A1qWm9Xy0xJmJ7e3m3y0o9m1zYz3g9Wc6C7S6n6VqfRk3u1h8L9nJm3z8x5rOZQX3Sx3y4VwJ7kT7d2CkHPq2Jv0uQG6yq4o5Q8xT1z2aJg1v8b3hQ3+0c6K2m0Cwq3mJb3qO4QGz5qvD8y58S4rVx2z2t3d9Y6e9M1v0cQd9dD3xi1A722bQB67UCvbRuAXjvQa/vGA/Bf2Wl1acRkdtgAAAAASUVORK5CYII=" />
+
+<style>
+  /* ===== Bảng màu Y HỆT web cũ ===== */
+  :root{
+    --brand: #12B7FF;
+    --brand-dark: #0B8ED1;
+    --border: #d6e6f2;
+    --muted: #54647a;
+
+    --text: #0b1220;           /* chữ chính */
+    --bg: #FFFFFF;             /* nền trang */
+    --header-bg: #DAF0F7;      /* nền header */
+    --header-text: #38B6FF;    /* màu chữ trong header */
+
+    --card-titlebar: #E6F7FF;  /* thanh tiêu đề card */
+    --hover: #f6fbff;          /* hover hàng */
+    --shadow-card: 0 6px 18px rgba(18, 183, 255, 0.08);
+
+    /* Badge tình trạng (nếu dùng) */
+    --ok-bg: #e6ffef;  --ok-text:#007a33;  --ok-border:#b8f5cf;
+    --bad-bg:#ffeff0;  --bad-text:#b00020; --bad-border:#ffd0d3;
+    --blue-bg:#e6f7ff; --blue-text:#055b8a; --blue-border:#c9eaff;
+
+    --radius-lg: 16px; --radius-sm: 10px;
+    --gap: 14px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; color:var(--text); background:var(--bg)}
+  .wrap{max-width:1200px; margin:0 auto; padding:14px 16px}
+
+  /* ===== Header (giữ style cũ, bỏ ô tìm kiếm & 3 filter) ===== */
+  header{position:sticky; top:0; z-index:10; background:var(--header-bg); color:var(--header-text); border-bottom:1px solid var(--border)}
+  .title{font-weight:900; font-size:24px}
+  .subtitle-small{font-size:60%; font-weight:600; opacity:.9; margin-left:1.5px; letter-spacing:-.2px; position:relative; top:-.5px}
+  .subtitle{font-size:13px; opacity:.9}
+
+  /* ===== Lưới 4 bảng: mobile 1 cột, desktop 2x2 ===== */
+  .boards{display:grid; grid-template-columns:1fr; gap:16px; margin-top:12px}
+  @media (min-width: 900px){ .boards{grid-template-columns: 1fr 1fr} }
+
+  /* ===== Card / bảng gọn 3 cột ===== */
+  .card{background:#fff; border:1.5px solid var(--border); border-radius:14px; overflow:hidden; box-shadow:var(--shadow-card)}
+  .card .titlebar{background:var(--card-titlebar); padding:10px 16px; font-weight:800; border-bottom:1px solid var(--border); color:var(--brand-dark)}
+  .table-wrap{overflow:auto}
+  table{width:100%; border-collapse:collapse; font-size:14px}
+  th,td{padding:10px 10px; border-bottom:1px solid var(--border); text-align:left; white-space:nowrap}
+  th{font-weight:800}
+  td.price{text-align:right; font-variant-numeric:tabular-nums}
+  tbody tr:hover{background:var(--hover)}
+
+  /* Badge ghi chú (tùy chọn) */
+  .pill{display:inline-block; padding:2px 8px; border-radius:999px; font-size:12px; font-weight:800}
+  .pill.ok{background:var(--ok-bg); color:var(--ok-text); border:1px solid var(--ok-border)}
+  .pill.bad{background:var(--bad-bg); color:var(--bad-text); border:1px solid var(--bad-border)}
+  .pill.blue{background:var(--blue-bg); color:var(--blue-text); border:1px solid var(--blue-border)}
+</style>
+
+<script>
+/* ====== Nguồn dữ liệu: CSV (y như web cũ) ====== */
+const URL_ALL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vScB3O9RHORztA1jt0R9IU74vKx19WcpMgh_N6eOU2uKcmczj44re7jb7KqF4Acz-gwCIgPNK3THJlF/pub?output=csv";
+
+/* CSV parser đơn giản (giữ nguyên như bản cũ) */
+function parseCSV(text){
+  const rows=[]; let i=0, field='', row=[], inQuotes=false;
+  while(i<text.length){ const c=text[i]; if(inQuotes){ if(c==='"'){ if(text[i+1]==='"'){ field+='"'; i++; } else inQuotes=false; } else field+=c; } else { if(c===','){ row.push(field); field=''; } else if(c==='\n'){ row.push(field); rows.push(row); row=[]; field=''; } else if(c==='"'){ inQuotes=true; } else field+=c; } i++; }
+  if(field.length||row.length){ row.push(field); rows.push(row); }
+  return rows;
+}
+function normalizeHeader(h){ return (h||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,''); }
+function mapHeaderVN(h){ const key=normalizeHeader(h); const map={ 'danh_muc':'danh_muc', 'ten_san_pham':'ten_san_pham','ten_sanpham':'ten_san_pham', 'don_gia_vnd':'don_gia_vnd','don_gia':'don_gia_vnd','gia':'don_gia_vnd', 'ghi_chu':'ghi_chu','ghichu':'ghi_chu','ghi_chu_bh':'ghi_chu', 'tinh_trang':'tinh_trang' }; return map[key]||key; }
+async function fetchAll(url){ const res=await fetch(url); if(!res.ok) throw new Error('HTTP '+res.status); const text=await res.text(); const rows=parseCSV(text); const headers=rows[0].map(mapHeaderVN); return rows.slice(1).filter(r=>r.some(x=>(x||'').trim().length)).map(r=>{ const o={}; headers.forEach((h,i)=>o[h]=(r[i]||'').trim()); return o; }); }
+function fmtPrice(v){ const n=parseFloat((v||'').toString().replaceAll('.','').replaceAll(',','')); return (!isNaN(n)&&n>0)? n.toLocaleString('vi-VN'): '—'; }
+function badge(text){ if(!text) return ''; const t=text.toLowerCase(); if(t.includes('hết')) return <span class="pill bad">${text}</span>; if(t.includes('còn')) return <span class="pill ok">${text}</span>; if(t.includes('active')) return <span class="pill blue">${text}</span>; return text; }
+
+/* ====== Danh mục cố định 4 bảng ====== */
+const CATS = ["AirPods","iPad","iPhone","Pencil"];
+
+/* Render 1 bảng */
+function renderBoard(cat, rows){
+  const card = document.getElementById(board-${cat});
+  const tbody = card.querySelector('tbody');
+
+  // Nhóm theo cột dong_san_pham
+  const groups = {};
+  rows.forEach(r=>{
+    const g = (r.dong_san_pham||'Khác').trim();
+    if(!groups[g]) groups[g] = [];
+    groups[g].push(r);
+  });
+
+  // Sắp xếp nhóm theo tên (A→Z), mỗi nhóm sắp xếp theo tên sản phẩm
+  const orderedGroupNames = Object.keys(groups).sort((a,b)=>a.localeCompare(b,'vi',{sensitivity:'base'}));
+  let html = '';
+  orderedGroupNames.forEach(gn=>{
+    html += <tr class="groupname"><td colspan="3">${gn}</td></tr>;
+    const items = groups[gn].sort((a,b)=> (a.ten_san_pham||'').localeCompare(b.ten_san_pham||'', 'vi', {sensitivity:'base'}));
+    items.forEach(r=>{
+      const name = r.ten_san_pham || '';
+      const price = fmtPrice(r.don_gia_vnd);
+      const note = r.ghi_chu || '';
+      html += <tr><td>${name}</td><td class="price">${price}</td><td>${badge(note)}</td></tr>;
+    });
+  });
+  tbody.innerHTML = html;
+}
+
+/* Khởi tạo: tải CSV và lấp vào 4 bảng */
+async function boot(){
+  // cập nhật ngày
+  const d=new Date(); const dd=String(d.getDate()).padStart(2,'0'); const mm=String(d.getMonth()+1).padStart(2,'0'); const yyyy=d.getFullYear();
+  const todayEl=document.querySelector('.today'); if(todayEl) todayEl.textContent=`${dd}/${mm}/${yyyy}`;
+
+  try{
+    const ALL = await fetchAll(URL_ALL);
+    CATS.forEach(cat=>{
+      const filtered = ALL.filter(x=> (x.danh_muc||'').trim().toLowerCase() === cat.toLowerCase());
+      renderBoard(cat, filtered);
+    });
+  }catch(e){ console.error(e); }
+}
+window.addEventListener('DOMContentLoaded', boot);
+</script>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <div>
+        <div class="title">Cái tiệm bán táo <span class="subtitle-small">by Tina House</span></div>
+        <div class="subtitle">Bảng giá • Cập nhật: <span class="today"></span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="boards">
+    <!-- AirPods -->
+    <div class="card" id="board-AirPods">
+      <div class="titlebar">AirPods</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+    <!-- iPad -->
+    <div class="card" id="board-iPad">
+      <div class="titlebar">iPad</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+    <!-- iPhone -->
+    <div class="card" id="board-iPhone">
+      <div class="titlebar">iPhone</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Pencil -->
+    <div class="card" id="board-Pencil">
+      <div class="titlebar">Pencil</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+</body>
+</html>
+Viết cho Phan Lê Bình
