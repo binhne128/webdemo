@@ -54,6 +54,8 @@
   th{font-weight:800}
   td.price{text-align:right; font-variant-numeric:tabular-nums}
   tbody tr:hover{background:var(--hover)}
+  /* Hàng nhóm (group header) */
+  tbody tr.groupname td{background:#f9fcff; font-weight:900; font-size:15px; color:#082947}
 
   /* Badge ghi chú (tùy chọn) */
   .pill{display:inline-block; padding:2px 8px; border-radius:999px; font-size:12px; font-weight:800}
@@ -73,18 +75,58 @@ function parseCSV(text){
   if(field.length||row.length){ row.push(field); rows.push(row); }
   return rows;
 }
-function normalizeHeader(h){ return (h||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,''); }
-function mapHeaderVN(h){ const key=normalizeHeader(h); const map={ 'danh_muc':'danh_muc', 'ten_san_pham':'ten_san_pham','ten_sanpham':'ten_san_pham', 'don_gia_vnd':'don_gia_vnd','don_gia':'don_gia_vnd','gia':'don_gia_vnd', 'ghi_chu':'ghi_chu','ghichu':'ghi_chu','ghi_chu_bh':'ghi_chu', 'tinh_trang':'tinh_trang' }; return map[key]||key; }
-async function fetchAll(url){ const res=await fetch(url); if(!res.ok) throw new Error('HTTP '+res.status); const text=await res.text(); const rows=parseCSV(text); const headers=rows[0].map(mapHeaderVN); return rows.slice(1).filter(r=>r.some(x=>(x||'').trim().length)).map(r=>{ const o={}; headers.forEach((h,i)=>o[h]=(r[i]||'').trim()); return o; }); }
-function fmtPrice(v){ const n=parseFloat((v||'').toString().replaceAll('.','').replaceAll(',','')); return (!isNaN(n)&&n>0)? n.toLocaleString('vi-VN'): '—'; }
-function badge(text){ if(!text) return ''; const t=text.toLowerCase(); if(t.includes('hết')) return <span class="pill bad">${text}</span>; if(t.includes('còn')) return <span class="pill ok">${text}</span>; if(t.includes('active')) return <span class="pill blue">${text}</span>; return text; }
+function normalizeHeader(h){
+  return (h||'')
+    .replace(/
+|
+/g,'')               // loại bỏ CR/LF để tránh lỗi 'ghi_chu
+'
+    .toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g,'')
+    .replace(/[^a-z0-9]+/g,'_')
+    .replace(/^_|_$/g,'');
+}{ return (h||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,''); }
+function mapHeaderVN(h){
+  const key=normalizeHeader(h);
+  const map={
+    'danh_muc':'danh_muc',
+    'dong_san_pham':'dong_san_pham','dong_sp':'dong_san_pham','dongsanpham':'dong_san_pham',
+    'ten_san_pham':'ten_san_pham','ten_sanpham':'ten_san_pham',
+    'don_gia_vnd':'don_gia_vnd','don_gia':'don_gia_vnd','gia':'don_gia_vnd',
+    'ghi_chu':'ghi_chu','ghichu':'ghi_chu','ghi_chu_bh':'ghi_chu',
+    'tinh_trang':'tinh_trang','tinhtrang':'tinh_trang','status':'tinh_trang'
+  };
+  return map[key]||key;
+}{ const key=normalizeHeader(h); const map={ 'danh_muc':'danh_muc', 'ten_san_pham':'ten_san_pham','ten_sanpham':'ten_san_pham', 'don_gia_vnd':'don_gia_vnd','don_gia':'don_gia_vnd','gia':'don_gia_vnd', 'ghi_chu':'ghi_chu','ghichu':'ghi_chu','ghi_chu_bh':'ghi_chu', 'tinh_trang':'tinh_trang' }; return map[key]||key; }
+async function fetchAll(url){
+  const res = await fetch(url, {cache:'no-store'});
+  if(!res.ok) throw new Error('HTTP '+res.status);
+  const text = await res.text();
+  const rows = parseCSV(text);
+  if(!rows.length) throw new Error('CSV rỗng');
+  // làm sạch CR ở cuối từng ô
+  const cleaned = rows.map(r=>r.map(c=> (c||'').replace(/
+/g,'')));
+  const headers = cleaned[0].map(mapHeaderVN);
+  const out = cleaned.slice(1)
+    .filter(r => r.some(x => (x||'').trim().length))
+    .map(r => { const o={}; headers.forEach((h,i)=> o[h] = (r[i]||'').trim()); return o; });
+  return out;
+}{ const res=await fetch(url); if(!res.ok) throw new Error('HTTP '+res.status); const text=await res.text(); const rows=parseCSV(text); const headers=rows[0].map(mapHeaderVN); return rows.slice(1).filter(r=>r.some(x=>(x||'').trim().length)).map(r=>{ const o={}; headers.forEach((h,i)=>o[h]=(r[i]||'').trim()); return o; }); }
+function fmtPrice(v){
+  // Hỗ trợ Safari cũ (không có replaceAll)
+  const cleaned = (v||'').toString().replace(/[.,]/g,'');
+  const n = parseFloat(cleaned);
+  return (!isNaN(n) && n>0) ? n.toLocaleString('vi-VN') : '—';
+}{ const n=parseFloat((v||'').toString().replaceAll('.','').replaceAll(',','')); return (!isNaN(n)&&n>0)? n.toLocaleString('vi-VN'): '—'; }
+function badge(text){ if(!text) return ''; const t=text.toLowerCase(); if(t.includes('hết')) return `<span class="pill bad">${text}</span>`; if(t.includes('còn')) return `<span class="pill ok">${text}</span>`; if(t.includes('active')) return `<span class="pill blue">${text}</span>`; return text; }
 
 /* ====== Danh mục cố định 4 bảng ====== */
 const CATS = ["AirPods","iPad","iPhone","Pencil"];
 
 /* Render 1 bảng */
 function renderBoard(cat, rows){
-  const card = document.getElementById(board-${cat});
+  const card = document.getElementById(`board-${cat}`);
   const tbody = card.querySelector('tbody');
 
   // Nhóm theo cột dong_san_pham
@@ -99,13 +141,13 @@ function renderBoard(cat, rows){
   const orderedGroupNames = Object.keys(groups).sort((a,b)=>a.localeCompare(b,'vi',{sensitivity:'base'}));
   let html = '';
   orderedGroupNames.forEach(gn=>{
-    html += <tr class="groupname"><td colspan="3">${gn}</td></tr>;
+    html += `<tr class="groupname"><td colspan="3">${gn}</td></tr>`;
     const items = groups[gn].sort((a,b)=> (a.ten_san_pham||'').localeCompare(b.ten_san_pham||'', 'vi', {sensitivity:'base'}));
     items.forEach(r=>{
       const name = r.ten_san_pham || '';
       const price = fmtPrice(r.don_gia_vnd);
       const note = r.ghi_chu || '';
-      html += <tr><td>${name}</td><td class="price">${price}</td><td>${badge(note)}</td></tr>;
+      html += `<tr><td>${name}</td><td class="price">${price}</td><td>${badge(note)}</td></tr>`;
     });
   });
   tbody.innerHTML = html;
@@ -126,6 +168,14 @@ async function boot(){
   }catch(e){ console.error(e); }
 }
 window.addEventListener('DOMContentLoaded', boot);
+
+// Debug nhẹ: in số lượng từng danh mục vào console
+console.log('Đang tải CSV:', URL_ALL);
+fetch(URL_ALL).then(r=>r.text()).then(t=>{
+  const sample = parseCSV(t).slice(0,3);
+  console.log('Mẫu 3 dòng đầu tiên (raw CSV):', sample);
+}).catch(e=>console.warn('Không lấy được CSV để kiểm tra nhanh:', e));
+window.addEventListener('error', e=>{ console.error('JS error:', e.message); });
 </script>
 </head>
 <body>
@@ -186,4 +236,3 @@ window.addEventListener('DOMContentLoaded', boot);
 </main>
 </body>
 </html>
-Viết cho Phan Lê Bình
