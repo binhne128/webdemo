@@ -6,37 +6,58 @@
 <title>Cái tiệm bán táo by Tina House – Giá nhanh (4 bảng)</title>
 
 <style>
+  /* ===== Bảng màu & style y hệt web cũ ===== */
   :root{
     --brand:#12B7FF; --brand-dark:#0B8ED1; --border:#d6e6f2; --muted:#54647a;
     --text:#0b1220; --bg:#fff; --header-bg:#DAF0F7; --header-text:#38B6FF;
     --card-titlebar:#E6F7FF; --hover:#f6fbff;
-    --radius-lg:16px; --shadow:0 6px 18px rgba(18,183,255,.08);
+    --shadow:0 6px 18px rgba(18,183,255,.08);
   }
   *{box-sizing:border-box}
   body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; color:var(--text); background:var(--bg)}
   .wrap{max-width:1200px; margin:0 auto; padding:14px 16px}
+
+  /* Header */
   header{position:sticky; top:0; z-index:10; background:var(--header-bg); color:var(--header-text); border-bottom:1px solid var(--border)}
   .title{font-weight:900; font-size:24px}
   .subtitle-small{font-size:60%; font-weight:600; opacity:.9; margin-left:2px}
   .subtitle{font-size:13px; opacity:.9}
 
+  /* Lưới 4 bảng: mobile 1 cột, desktop 2x2 */
   .boards{display:grid; grid-template-columns:1fr; gap:16px; margin-top:12px}
   @media (min-width:900px){ .boards{grid-template-columns:1fr 1fr} }
 
+  /* Card/Bảng (3 cột) */
   .card{background:#fff; border:1.5px solid var(--border); border-radius:14px; overflow:hidden; box-shadow:var(--shadow)}
   .titlebar{background:var(--card-titlebar); padding:10px 16px; font-weight:800; border-bottom:1px solid var(--border); color:#073a5b}
   .table-wrap{overflow:auto}
   table{width:100%; border-collapse:collapse; font-size:14px}
   th,td{padding:10px 10px; border-bottom:1px solid var(--border); text-align:left; white-space:nowrap}
   th{font-weight:800}
-  td.price{text-align:right; font-variant-numeric:tabular-nums}
-  tbody tr:hover{background:var(--hover)}
+  /* Căn phải cột giá (header + body) */
+  .table-wrap table thead th:nth-child(2),
+  .table-wrap table tbody td:nth-child(2){
+    text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap;
+  }
+  /* Hàng nhóm */
   tr.group td{background:#f9fcff; color:#082947; font-weight:900}
 
+  /* Badge ghi chú */
   .pill{display:inline-block; padding:2px 8px; border-radius:999px; font-size:12px; font-weight:800}
   .pill.ok{background:#e6ffef; color:#007a33; border:1px solid #b8f5cf}
   .pill.bad{background:#ffeff0; color:#b00020; border:1px solid #ffd0d3}
   .pill.blue{background:#e6f7ff; color:#055b8a; border:1px solid #c9eaff}
+
+  /* Tối ưu mobile: chữ gọn, tên SP bẻ dòng, badge gọn */
+  @media (max-width:640px){
+    .table-wrap table{ table-layout:fixed; }
+    table{ font-size:13px; }
+    th{ font-size:12.5px; }
+    th,td{ padding:8px 6px; white-space:normal; }
+    td:first-child{ word-break:break-word; }     /* tên dài tự xuống dòng */
+    td:last-child .pill{ white-space:nowrap; }   /* badge không vỡ chữ */
+    tr.group td{ font-size:13.5px; padding-top:10px; padding-bottom:6px; }
+  }
 </style>
 </head>
 <body>
@@ -49,48 +70,64 @@
 
 <main class="wrap">
   <section class="boards">
+    <!-- AirPods -->
     <div class="card" id="board-AirPods">
       <div class="titlebar">AirPods</div>
-      <div class="table-wrap"><table>
-        <thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead>
-        <tbody><tr><td>Đang tải…</td><td></td><td></td></tr></tbody>
-      </table></div>
+      <div class="table-wrap">
+        <table>
+          <colgroup><col style="width:60%"><col style="width:22%"><col style="width:18%"></colgroup>
+          <thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead>
+          <tbody><tr><td>Đang tải…</td><td></td><td></td></tr></tbody>
+        </table>
+      </div>
     </div>
+    <!-- iPad -->
     <div class="card" id="board-iPad">
       <div class="titlebar">iPad</div>
-      <div class="table-wrap"><table>
-        <thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead>
-        <tbody><tr><td>Đang tải…</td><td></td><td></td></tr></tbody>
-      </table></div>
+      <div class="table-wrap">
+        <table>
+          <colgroup><col style="width:60%"><col style="width:22%"><col style="width:18%"></colgroup>
+          <thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead>
+          <tbody><tr><td>Đang tải…</td><td></td><td></td></tr></tbody>
+        </table>
+      </div>
     </div>
+    <!-- iPhone -->
     <div class="card" id="board-iPhone">
       <div class="titlebar">iPhone</div>
-      <div class="table-wrap"><table>
-        <thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead>
-        <tbody><tr><td>Đang tải…</td><td></td><td></td></tr></tbody>
-      </table></div>
+      <div class="table-wrap">
+        <table>
+          <colgroup><col style="width:60%"><col style="width:22%"><col style="width:18%"></colgroup>
+          <thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead>
+          <tbody><tr><td>Đang tải…</td><td></td><td></td></tr></tbody>
+        </table>
+      </div>
     </div>
+    <!-- Pencil -->
     <div class="card" id="board-Pencil">
       <div class="titlebar">Pencil</div>
-      <div class="table-wrap"><table>
-        <thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead>
-        <tbody><tr><td>Đang tải…</td><td></td><td></td></tr></tbody>
-      </table></div>
+      <div class="table-wrap">
+        <table>
+          <colgroup><col style="width:60%"><col style="width:22%"><col style="width:18%"></colgroup>
+          <thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead>
+          <tbody><tr><td>Đang tải…</td><td></td><td></td></tr></tbody>
+        </table>
+      </div>
     </div>
   </section>
 </main>
 
 <script>
-  // 1) URL CSV của bạn
+  /* 1) CSV URL của bạn */
   const URL_ALL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vScB3O9RHORztA1jt0R9IU74vKx19WcpMgh_N6eOU2uKcmczj44re7jb7KqF4Acz-gwCIgPNK3THJlF/pub?output=csv";
 
-  // 2) Cập nhật ngày
+  /* 2) Cập nhật ngày */
   (function(){
     const d=new Date(); const dd=String(d.getDate()).padStart(2,'0'); const mm=String(d.getMonth()+1).padStart(2,'0'); const yyyy=d.getFullYear();
     const el=document.querySelector('.today'); if(el) el.textContent=`${dd}/${mm}/${yyyy}`;
   })();
 
-  // 3) CSV parser an toàn (không dùng regex phức tạp)
+  /* 3) Parser CSV an toàn (không regex nhạy cảm) */
   function parseCSV(text){
     const out=[], row=[]; let i=0, f="", q=false;
     for(; i<text.length; i++){
@@ -110,7 +147,7 @@
     return out;
   }
 
-  // 4) Chuẩn hóa header
+  /* 4) Chuẩn hóa & map header */
   function norm(s){
     return (s||"").toString().toLowerCase()
       .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
@@ -120,7 +157,7 @@
     const k=norm(h);
     const m={
       danh_muc:"danh_muc",
-      dong_san_pham:"dong_san_pham", dong_sp:"dong_san_pham", dongsanpham:"dong_san_pham",
+      dong_san_pham:"dong_san_pham", dongsanpham:"dong_san_pham", dong_sp:"dong_san_pham",
       ten_san_pham:"ten_san_pham", ten_sanpham:"ten_san_pham",
       don_gia_vnd:"don_gia_vnd", don_gia:"don_gia_vnd", gia:"don_gia_vnd",
       ghi_chu:"ghi_chu", ghichu:"ghi_chu", ghi_chu_bh:"ghi_chu"
@@ -128,7 +165,7 @@
     return m[k]||k;
   }
 
-  // 5) Tải & chuyển CSV → objects
+  /* 5) Tải & chuyển CSV → objects */
   async function loadCSV(url){
     const res=await fetch(url,{cache:"no-store"});
     if(!res.ok) throw new Error("HTTP "+res.status);
@@ -138,21 +175,18 @@
     const headers=rows[0].map(mapHeader);
     const data=rows.slice(1)
       .filter(r=>r.some(x=>(x||"").trim().length))
-      .map(r=>{
-        const o={}; headers.forEach((h,i)=>o[h]=(r[i]||"").trim()); return o;
-      });
+      .map(r=>{ const o={}; headers.forEach((h,i)=>o[h]=(r[i]||"").trim()); return o; });
     return data;
   }
 
-  // 6) Render
+  /* 6) Render */
   const CATS=["AirPods","iPad","iPhone","Pencil"];
   function pill(note){
     const t=(note||"").toLowerCase();
     if(!t) return "";
     if(t.includes("hết")) return `<span class="pill bad">${note}</span>`;
     if(t.includes("còn")) return `<span class="pill ok">${note}</span>`;
-    if(t.includes("active")) return `<span class="pill blue">${note}</span>`;
-    if(t.includes("newseal")) return `<span class="pill blue">${note}</span>`;
+    if(t.includes("active") || t.includes("newseal")) return `<span class="pill blue">${note}</span>`;
     return note;
   }
   function renderBoard(cat, rows){
@@ -172,13 +206,13 @@
         const raw=(r.don_gia_vnd||"").toString().replace(/[.,\s]/g,"");
         const num=Number(raw); const price=Number.isFinite(num)&&num>0 ? num.toLocaleString("vi-VN") : "—";
         const note=r.ghi_chu||"";
-        html+=`<tr><td>${name}</td><td class="price">${price}</td><td>${pill(note)}</td></tr>`;
+        html+=`<tr><td>${name}</td><td>${price}</td><td>${pill(note)}</td></tr>`;
       });
     });
     el.innerHTML=html||`<tr><td>Chưa có dữ liệu</td><td></td><td></td></tr>`;
   }
 
-  // 7) Boot
+  /* 7) Boot */
   (async function(){
     try{
       const ALL=await loadCSV(URL_ALL);
@@ -187,7 +221,6 @@
         renderBoard(cat, rows);
       });
     }catch(e){
-      // Nếu lỗi, đừng để trang trắng
       CATS.forEach(cat=>{
         const el=document.querySelector(`#board-${cat} tbody`);
         if(el) el.innerHTML=`<tr><td colspan="3">Lỗi tải dữ liệu: ${e.message}</td></tr>`;
