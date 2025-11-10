@@ -78,6 +78,15 @@ function parseCSV(text){
 function normalizeHeader(h){
   return (h||'')
     .replace(/
+?
+/g,'')            // loại CR/LF
+    .toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g,'')
+    .replace(/[^a-z0-9]+/g,'_')
+    .replace(/^_|_$/g,'');
+}{
+  return (h||'')
+    .replace(/
 |
 /g,'')               // loại bỏ CR/LF để tránh lỗi 'ghi_chu
 '
@@ -169,70 +178,9 @@ async function boot(){
 }
 window.addEventListener('DOMContentLoaded', boot);
 
-// Debug nhẹ: in số lượng từng danh mục vào console
+// Debug: in log rõ ràng
 console.log('Đang tải CSV:', URL_ALL);
-fetch(URL_ALL).then(r=>r.text()).then(t=>{
-  const sample = parseCSV(t).slice(0,3);
-  console.log('Mẫu 3 dòng đầu tiên (raw CSV):', sample);
-}).catch(e=>console.warn('Không lấy được CSV để kiểm tra nhanh:', e));
-window.addEventListener('error', e=>{ console.error('JS error:', e.message); });
-</script>
-</head>
-<body>
-<header>
-  <div class="wrap">
-    <div style="display:flex;align-items:center;gap:14px;">
-      <div>
-        <div class="title">Cái tiệm bán táo <span class="subtitle-small">by Tina House</span></div>
-        <div class="subtitle">Bảng giá • Cập nhật: <span class="today"></span></div>
-      </div>
-    </div>
-  </div>
-</header>
-
-<main class="wrap">
-  <section class="boards">
-    <!-- AirPods -->
-    <div class="card" id="board-AirPods">
-      <div class="titlebar">AirPods</div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </div>
-    <!-- iPad -->
-    <div class="card" id="board-iPad">
-      <div class="titlebar">iPad</div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </div>
-    <!-- iPhone -->
-    <div class="card" id="board-iPhone">
-      <div class="titlebar">iPhone</div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </div>
-    <!-- Pencil -->
-    <div class="card" id="board-Pencil">
-      <div class="titlebar">Pencil</div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-</main>
-</body>
-</html>
+fetch(URL_ALL, {cache:'no-store'})
+  .then(r=>r.text())
+  .then(t=>{ try{ console.log('Mẫu 3 dòng đầu tiên (raw CSV):', parseCSV(t).slice(0,3)); }catch(e){ console.warn('Không parse được mẫu CSV:', e);} })
+  .catch(e=>console.warn('Không lấy được CSV để kiểm tra nhanh:', e));
