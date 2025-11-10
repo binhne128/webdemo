@@ -4,230 +4,115 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Cái tiệm bán táo by Tina House – Giá nhanh (4 bảng)</title>
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsSAAALEgHS3X78AAAB40lEQVR4nO2aMW7bQBBFZ0f2D8k0CwSEjDgJw5S0gJqVJgQWkJ5P4A0J4gG5p9aDkG8o3b2pC7h7n2z0u0i9d4v8K5w3zXK0G1p5b5+v1r2b8fjO5uR3w0mF8vQf9cQk5yq4vC6sL3i8Kj8VmlLZ8m7q1B2K1bQ3oWw7Cw4I5U6bJ3V6l3H2m7eyEo6Wb3Tt7JcV3KQkS6G0hU6m0L3X0d2vC2qV9IYh2m5JjG2kq3b6h1dBvV7MgdY4r5cV2l7Vv8pYk3v7YkJm0z1mJ1m3dWyfV3vY0kqYl4lJf3w1g2iWv9A1qWm9Xy0xJmJ7e3m3y0o9m1zYz3g9Wc6C7S6n6VqfRk3u1h8L9nJm3z8x5rOZQX3Sx3y4VwJ7kT7d2CkHPq2Jv0uQG6yq4o5Q8xT1z2aJg1v8b3hQ3+0c6K2m0Cwq3mJb3qO4QGz5qvD8y58S4rVx2z2t3d9Y6e9M1v0cQd9dD3xi1A722bQB67UCvbRuAXjvQa/vGA/Bf2Wl1acRkdtgAAAAASUVORK5CYII=" />
 
 <style>
-  /* ===== Bảng màu & style y hệt web cũ ===== */
   :root{
-    --brand:#12B7FF; --brand-dark:#0B8ED1; --border:#d6e6f2; --muted:#54647a;
-    --text:#0b1220; --bg:#fff; --header-bg:#DAF0F7; --header-text:#38B6FF;
-    --card-titlebar:#E6F7FF; --hover:#f6fbff;
-    --shadow:0 6px 18px rgba(18,183,255,.08);
+    --brand: #12B7FF;
+    --brand-dark: #0B8ED1;
+    --border: #d6e6f2;
+    --muted: #54647a;
+    --text: #0b1220;
+    --bg: #FFFFFF;
+    --header-bg: #DAF0F7;
+    --header-text: #38B6FF;
+    --card-titlebar: #E6F7FF;
+    --hover: #f6fbff;
+    --shadow-card: 0 6px 18px rgba(18, 183, 255, 0.08);
+    --ok-bg: #e6ffef;  --ok-text:#007a33;  --ok-border:#b8f5cf;
+    --bad-bg:#ffeff0;  --bad-text:#b00020; --bad-border:#ffd0d3;
+    --blue-bg:#e6f7ff; --blue-text:#055b8a; --blue-border:#c9eaff;
+    --radius-lg: 16px; --radius-sm: 10px;
+    --gap: 14px;
   }
   *{box-sizing:border-box}
   body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; color:var(--text); background:var(--bg)}
   .wrap{max-width:1200px; margin:0 auto; padding:14px 16px}
 
-  /* Header */
   header{position:sticky; top:0; z-index:10; background:var(--header-bg); color:var(--header-text); border-bottom:1px solid var(--border)}
   .title{font-weight:900; font-size:24px}
-  .subtitle-small{font-size:60%; font-weight:600; opacity:.9; margin-left:2px}
+  .subtitle-small{font-size:60%; font-weight:600; opacity:.9; margin-left:1.5px; letter-spacing:-.2px; position:relative; top:-.5px}
   .subtitle{font-size:13px; opacity:.9}
 
-  /* Lưới 4 bảng: mobile 1 cột, desktop 2x2 */
   .boards{display:grid; grid-template-columns:1fr; gap:16px; margin-top:12px}
-  @media (min-width:900px){ .boards{grid-template-columns:1fr 1fr} }
+  @media (min-width: 900px){ .boards{grid-template-columns: 1fr 1fr} }
 
-  /* Card/Bảng (3 cột) */
-  .card{background:#fff; border:1.5px solid var(--border); border-radius:14px; overflow:hidden; box-shadow:var(--shadow)}
-  .titlebar{background:var(--card-titlebar); padding:10px 16px; font-weight:800; border-bottom:1px solid var(--border); color:#073a5b}
+  .card{background:#fff; border:1.5px solid var(--border); border-radius:14px; overflow:hidden; box-shadow:var(--shadow-card)}
+  .card .titlebar{background:var(--card-titlebar); padding:10px 16px; font-weight:800; border-bottom:1px solid var(--border); color:var(--brand-dark)}
   .table-wrap{overflow:auto}
-  table{width:100%; border-collapse:collapse; font-size:14px}
-  th,td{padding:10px 10px; border-bottom:1px solid var(--border); text-align:left; white-space:nowrap}
+  table{width:100%; border-collapse:collapse; font-size:14px; table-layout:fixed}
+  th,td{padding:10px 8px; border-bottom:1px solid var(--border); text-align:left; white-space:nowrap}
   th{font-weight:800}
-  /* Căn phải cột giá (header + body) */
-  .table-wrap table thead th:nth-child(2),
-  .table-wrap table tbody td:nth-child(2){
-    text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap;
-  }
-  /* Hàng nhóm */
-  tr.group td{background:#f9fcff; color:#082947; font-weight:900}
+  td.price{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap}
+  tbody tr:hover{background:var(--hover)}
+  tbody tr.groupname td{background:#f9fcff; font-weight:900; font-size:15px; color:#082947}
 
-  /* Badge ghi chú */
-  .pill{display:inline-block; padding:2px 8px; border-radius:999px; font-size:12px; font-weight:800}
-  .pill.ok{background:#e6ffef; color:#007a33; border:1px solid #b8f5cf}
-  .pill.bad{background:#ffeff0; color:#b00020; border:1px solid #ffd0d3}
-  .pill.blue{background:#e6f7ff; color:#055b8a; border:1px solid #c9eaff}
+  .pill{display:inline-block; padding:2px 8px; border-radius:999px; font-size:12px; font-weight:800; white-space:nowrap}
+  .pill.ok{background:var(--ok-bg); color:var(--ok-text); border:1px solid var(--ok-border)}
+  .pill.bad{background:var(--bad-bg); color:var(--bad-text); border:1px solid var(--bad-border)}
+  .pill.blue{background:var(--blue-bg); color:var(--blue-text); border:1px solid var(--blue-border)}
 
-  /* Tối ưu mobile: chữ gọn, tên SP bẻ dòng, badge gọn */
+  /* Căn cột & tối ưu mobile */
+  th:nth-child(1){width:60%;}
+  th:nth-child(2){width:23%; text-align:right;}
+  th:nth-child(3){width:17%; text-align:right;}
+  td:nth-child(2){text-align:right;}
+  td:nth-child(3){text-align:right;}
+
   @media (max-width:640px){
-    .table-wrap table{ table-layout:fixed; }
-    table{ font-size:13px; }
-    th{ font-size:12.5px; }
-    th,td{ padding:8px 6px; white-space:normal; }
-    td:first-child{ word-break:break-word; }     /* tên dài tự xuống dòng */
-    td:last-child .pill{ white-space:nowrap; }   /* badge không vỡ chữ */
-    tr.group td{ font-size:13.5px; padding-top:10px; padding-bottom:6px; }
+    table{font-size:13px;}
+    th{font-size:12.5px;}
+    th,td{padding:8px 6px;}
+    td:first-child{word-break:break-word; white-space:normal;}
   }
 </style>
-</head>
-<body>
-<header>
-  <div class="wrap">
-    <div class="title">Cái tiệm bán táo <span class="subtitle-small">by Tina House</span></div>
-    <div class="subtitle">Bảng giá • Cập nhật: <span class="today"></span></div>
-  </div>
-</header>
-
-<main class="wrap">
-  <section class="boards">
-    <!-- AirPods -->
-    <div class="card" id="board-AirPods">
-      <div class="titlebar">AirPods</div>
-      <div class="table-wrap">
-        <table>
-          <colgroup><col style="width:60%"><col style="width:22%"><col style="width:18%"></colgroup>
-          <thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead>
-          <tbody><tr><td>Đang tải…</td><td></td><td></td></tr></tbody>
-        </table>
-      </div>
-    </div>
-    <!-- iPad -->
-    <div class="card" id="board-iPad">
-      <div class="titlebar">iPad</div>
-      <div class="table-wrap">
-        <table>
-          <colgroup><col style="width:60%"><col style="width:22%"><col style="width:18%"></colgroup>
-          <thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead>
-          <tbody><tr><td>Đang tải…</td><td></td><td></td></tr></tbody>
-        </table>
-      </div>
-    </div>
-    <!-- iPhone -->
-    <div class="card" id="board-iPhone">
-      <div class="titlebar">iPhone</div>
-      <div class="table-wrap">
-        <table>
-          <colgroup><col style="width:60%"><col style="width:22%"><col style="width:18%"></colgroup>
-          <thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead>
-          <tbody><tr><td>Đang tải…</td><td></td><td></td></tr></tbody>
-        </table>
-      </div>
-    </div>
-    <!-- Pencil -->
-    <div class="card" id="board-Pencil">
-      <div class="titlebar">Pencil</div>
-      <div class="table-wrap">
-        <table>
-          <colgroup><col style="width:60%"><col style="width:22%"><col style="width:18%"></colgroup>
-          <thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead>
-          <tbody><tr><td>Đang tải…</td><td></td><td></td></tr></tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-</main>
 
 <script>
-  /* 1) CSV URL của bạn */
-  const URL_ALL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vScB3O9RHORztA1jt0R9IU74vKx19WcpMgh_N6eOU2uKcmczj44re7jb7KqF4Acz-gwCIgPNK3THJlF/pub?output=csv";
+const URL_ALL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vScB3O9RHORztA1jt0R9IU74vKx19WcpMgh_N6eOU2uKcmczj44re7jb7KqF4Acz-gwCIgPNK3THJlF/pub?output=csv";
 
-  /* 2) Cập nhật ngày */
-  (function(){
-    const d=new Date(); const dd=String(d.getDate()).padStart(2,'0'); const mm=String(d.getMonth()+1).padStart(2,'0'); const yyyy=d.getFullYear();
-    const el=document.querySelector('.today'); if(el) el.textContent=`${dd}/${mm}/${yyyy}`;
-  })();
+function parseCSV(text){
+  const rows=[]; let i=0, field='', row=[], inQuotes=false;
+  while(i<text.length){ const c=text[i]; if(inQuotes){ if(c==='"'){ if(text[i+1]==='"'){ field+='"'; i++; } else inQuotes=false; } else field+=c; } else { if(c===','){ row.push(field); field=''; } else if(c==='\n'){ row.push(field); rows.push(row); row=[]; field=''; } else if(c==='"'){ inQuotes=true; } else field+=c; } i++; }
+  if(field.length||row.length){ row.push(field); rows.push(row); }
+  return rows;
+}
+function normalizeHeader(h){ return (h||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,''); }
+function mapHeaderVN(h){ const key=normalizeHeader(h); const map={ 'danh_muc':'danh_muc','dong_san_pham':'dong_san_pham','ten_san_pham':'ten_san_pham','don_gia_vnd':'don_gia_vnd','ghi_chu':'ghi_chu'}; return map[key]||key; }
+async function fetchAll(url){ const res=await fetch(url,{cache:'no-store'}); if(!res.ok) throw new Error('HTTP '+res.status); const text=await res.text(); const rows=parseCSV(text); const headers=rows[0].map(mapHeaderVN); return rows.slice(1).filter(r=>r.some(x=>(x||'').trim().length)).map(r=>{const o={}; headers.forEach((h,i)=>o[h]=(r[i]||'').trim()); return o;}); }
+function fmtPrice(v){ const cleaned=(v||'').toString().replace(/[.,]/g,''); const n=parseFloat(cleaned); return (!isNaN(n)&&n>0)? n.toLocaleString('vi-VN'):'—'; }
+function badge(text){ if(!text) return ''; const t=text.toLowerCase(); if(t.includes('hết')) return `<span class='pill bad'>${text}</span>`; if(t.includes('còn')) return `<span class='pill ok'>${text}</span>`; return `<span class='pill blue'>${text}</span>`; }
 
-  /* 3) Parser CSV an toàn (không regex nhạy cảm) */
-  function parseCSV(text){
-    const out=[], row=[]; let i=0, f="", q=false;
-    for(; i<text.length; i++){
-      const c=text[i];
-      if(q){
-        if(c==='"' && text[i+1]!=='"'){ q=false; }
-        else if(c==='"' && text[i+1]==='"'){ f+='"'; i++; }
-        else { f+=c; }
-      }else{
-        if(c===','){ row.push(f); f=""; }
-        else if(c==='\n'){ row.push(f); out.push(row.slice()); row.length=0; f=""; }
-        else if(c==='"'){ q=true; }
-        else if(c!=='\r'){ f+=c; } // bỏ CR
-      }
-    }
-    if(f.length || row.length){ row.push(f); out.push(row); }
-    return out;
-  }
-
-  /* 4) Chuẩn hóa & map header */
-  function norm(s){
-    return (s||"").toString().toLowerCase()
-      .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
-      .replace(/[^a-z0-9]+/g,"_").replace(/^_|_$/g,"");
-  }
-  function mapHeader(h){
-    const k=norm(h);
-    const m={
-      danh_muc:"danh_muc",
-      dong_san_pham:"dong_san_pham", dongsanpham:"dong_san_pham", dong_sp:"dong_san_pham",
-      ten_san_pham:"ten_san_pham", ten_sanpham:"ten_san_pham",
-      don_gia_vnd:"don_gia_vnd", don_gia:"don_gia_vnd", gia:"don_gia_vnd",
-      ghi_chu:"ghi_chu", ghichu:"ghi_chu", ghi_chu_bh:"ghi_chu"
-    };
-    return m[k]||k;
-  }
-
-  /* 5) Tải & chuyển CSV → objects */
-  async function loadCSV(url){
-    const res=await fetch(url,{cache:"no-store"});
-    if(!res.ok) throw new Error("HTTP "+res.status);
-    const text=await res.text();
-    const rows=parseCSV(text);
-    if(!rows.length) return [];
-    const headers=rows[0].map(mapHeader);
-    const data=rows.slice(1)
-      .filter(r=>r.some(x=>(x||"").trim().length))
-      .map(r=>{ const o={}; headers.forEach((h,i)=>o[h]=(r[i]||"").trim()); return o; });
-    return data;
-  }
-
-  /* 6) Render */
-  const CATS=["AirPods","iPad","iPhone","Pencil"];
-  function pill(note){
-    const t=(note||"").toLowerCase();
-    if(!t) return "";
-    if(t.includes("hết")) return `<span class="pill bad">${note}</span>`;
-    if(t.includes("còn")) return `<span class="pill ok">${note}</span>`;
-    if(t.includes("active") || t.includes("newseal")) return `<span class="pill blue">${note}</span>`;
-    return note;
-  }
-  function renderBoard(cat, rows){
-    const el=document.querySelector(`#board-${cat} tbody`); if(!el) return;
-    // nhóm theo dong_san_pham
-    const groups={};
-    rows.forEach(r=>{
-      const g=(r.dong_san_pham||"Khác").trim();
-      (groups[g]||(groups[g]=[])).push(r);
-    });
-    const names=Object.keys(groups).sort((a,b)=>a.localeCompare(b,"vi",{sensitivity:"base"}));
-    let html="";
-    names.forEach(g=>{
-      html+=`<tr class="group"><td colspan="3">${g}</td></tr>`;
-      groups[g].forEach(r=>{
-        const name=r.ten_san_pham||"";
-        const raw=(r.don_gia_vnd||"").toString().replace(/[.,\s]/g,"");
-        const num=Number(raw); const price=Number.isFinite(num)&&num>0 ? num.toLocaleString("vi-VN") : "—";
-        const note=r.ghi_chu||"";
-        html+=`<tr><td>${name}</td><td>${price}</td><td>${pill(note)}</td></tr>`;
-      });
-    });
-    el.innerHTML=html||`<tr><td>Chưa có dữ liệu</td><td></td><td></td></tr>`;
-  }
-
-  /* 7) Boot */
-  (async function(){
-    try{
-      const ALL=await loadCSV(URL_ALL);
-      CATS.forEach(cat=>{
-        const rows=ALL.filter(x => (x.danh_muc||"").trim().toLowerCase()===cat.toLowerCase());
-        renderBoard(cat, rows);
-      });
-    }catch(e){
-      CATS.forEach(cat=>{
-        const el=document.querySelector(`#board-${cat} tbody`);
-        if(el) el.innerHTML=`<tr><td colspan="3">Lỗi tải dữ liệu: ${e.message}</td></tr>`;
-      });
-      console.error(e);
-    }
-  })();
+const CATS=["AirPods","iPad","iPhone","Pencil"];
+function renderBoard(cat,rows){ const card=document.getElementById(`board-${cat}`); const tbody=card.querySelector('tbody'); const groups={}; rows.forEach(r=>{ const g=(r.dong_san_pham||'Khác').trim(); if(!groups[g]) groups[g]=[]; groups[g].push(r); }); const ordered=Object.keys(groups).sort((a,b)=>a.localeCompare(b,'vi',{sensitivity:'base'})); let html=''; ordered.forEach(g=>{ html+=`<tr class='groupname'><td colspan='3'>${g}</td></tr>`; groups[g].forEach(r=>{ html+=`<tr><td>${r.ten_san_pham||''}</td><td class='price'>${fmtPrice(r.don_gia_vnd)}</td><td>${badge(r.ghi_chu)}</td></tr>`; }); }); tbody.innerHTML=html; }
+async function boot(){ const d=new Date(); document.querySelector('.today').textContent=`${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`; try{ const ALL=await fetchAll(URL_ALL); CATS.forEach(cat=>renderBoard(cat,ALL.filter(x=>(x.danh_muc||'').toLowerCase()==cat.toLowerCase())));}catch(e){console.error(e);} }
+window.addEventListener('DOMContentLoaded',boot);
 </script>
+</head>
+<body>
+  <header class="wrap">
+    <div class="title">Cái tiệm bán táo <span class="subtitle-small">by Tina House</span></div>
+    <div class="subtitle">Bảng giá • Cập nhật: <span class="today"></span></div>
+  </header>
+
+  <main class="wrap">
+    <div class="boards">
+      <div class="card" id="board-AirPods">
+        <div class="titlebar">AirPods</div>
+        <div class="table-wrap"><table><thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead><tbody></tbody></table></div>
+      </div>
+      <div class="card" id="board-iPad">
+        <div class="titlebar">iPad</div>
+        <div class="table-wrap"><table><thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead><tbody></tbody></table></div>
+      </div>
+      <div class="card" id="board-iPhone">
+        <div class="titlebar">iPhone</div>
+        <div class="table-wrap"><table><thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead><tbody></tbody></table></div>
+      </div>
+      <div class="card" id="board-Pencil">
+        <div class="titlebar">Pencil</div>
+        <div class="table-wrap"><table><thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead><tbody></tbody></table></div>
+      </div>
+    </div>
+  </main>
 </body>
 </html>
