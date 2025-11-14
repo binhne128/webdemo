@@ -127,9 +127,18 @@ td:nth-child(2){
   text-align:center;
 }
 
+/* Ghi chú cách mép phải và badge căn giữa */
 td:nth-child(3){
-  text-align:right;
-  padding-right:6px;   /* xích vào 1 chút */
+  text-align:center;       /* căn giữa ngang */
+  padding-right:10px;      /* xích vào trong */
+}
+
+td:nth-child(3) .pill{
+  display:inline-flex;     
+  align-items:center;       /* căn giữa dọc */
+  justify-content:center;   /* căn giữa ngang */
+  min-width: 55px;          /* badge đều kích thước hơn */
+  text-align:center;
 }
 
 
