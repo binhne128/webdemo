@@ -195,6 +195,78 @@
       min-width:64px;
     }
   }
+  /* =========================
+   FORM LIÊN HỆ – COMBO 2 + 3
+   ========================= */
+
+.contact-box{
+  margin-top:12px;
+  padding:14px 18px;
+  background:#e8f6ff;
+  border:1.5px solid var(--border);
+  border-radius:14px;
+  box-shadow:0 4px 10px rgba(18,183,255,0.08);
+  color:#082947;
+}
+
+.contact-title{
+  font-weight:800;
+  font-size:16px;
+  margin-bottom:8px;
+  color:#0B8ED1;
+}
+
+.contact-info{
+  font-size:14px;
+  line-height:1.6;
+  margin-bottom:12px;
+}
+
+.contact-info a{
+  color:#0B8ED1;
+  text-decoration:none;
+  font-weight:600;
+}
+
+.contact-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.cbtn{
+  padding:8px 14px;
+  border-radius:999px;
+  font-size:14px;
+  font-weight:700;
+  color:white;
+  text-decoration:none;
+  display:inline-block;
+  transition:.15s ease;
+}
+
+.cbtn.call{ background:#0B8ED1; }
+.cbtn.zalo{ background:#0080ff; }
+.cbtn.telegram{ background:#229ED9; }
+.cbtn.facebook{ background:#1877F2; }
+
+.cbtn:hover{
+  opacity:.85;
+}
+
+/* Mobile tối ưu */
+@media (max-width:640px){
+  .contact-box{
+    padding:14px;
+  }
+  .contact-actions{
+    flex-direction:column;
+  }
+  .cbtn{
+    text-align:center;
+  }
+}
+
 </style>
 
 <script>
@@ -354,9 +426,35 @@ window.addEventListener('DOMContentLoaded',boot);
 </head>
 
 <body>
-  <header class="wrap">
-    <div class="title">Cái tiệm bán táo <span class="subtitle-small">by Tina House</span></div>
-  </header>
+ <header class="wrap">
+  <div class="title">Cái tiệm bán táo <span class="subtitle-small">by Tina House</span></div>
+
+  <!-- ⭐ FORM LIÊN HỆ -->
+  <div class="contact-box">
+    <div class="contact-title">📞 Liên hệ nhanh</div>
+
+    <div class="contact-info">
+      <div><strong>SĐT:</strong> 0923453003</div>
+      <div><strong>Zalo:</strong> 0923453003</div>
+      <div><strong>Telegram:</strong> @thaisophie</div>
+      <div><strong>Facebook Page:</strong> 
+        <a href="https://www.facebook.com/people/Cái-Tiệm-Bán-Táo/61550756556069/" target="_blank">
+          fb.com/caitiembantao
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-actions">
+      <a class="cbtn call" href="tel:0923453003">📞 Gọi ngay</a>
+      <a class="cbtn zalo" href="https://zalo.me/0923453003" target="_blank">💬 Zalo</a>
+      <a class="cbtn telegram" href="https://t.me/thaisophie" target="_blank">🚀 Telegram</a>
+      <a class="cbtn facebook" href="https://www.facebook.com/people/Cái-Tiệm-Bán-Táo/61550756556069/" target="_blank">👍 Facebook</a>
+    </div>
+  </div>
+  <!-- ⭐ END FORM LIÊN HỆ -->
+
+</header>
+
 
   <main class="wrap">
 
