@@ -246,7 +246,17 @@ function badge(text){
   return `<span class='pill blue'>${text}</span>`;
 }
 
-const CATS=["AirPods","iPad","MacBook","iPhone","Pencil","Phụ kiện"];
+const CATS=[
+  "AirPods",
+  "iPad",
+  "iPhone",
+  "MacBook",
+  "Pencil",
+  "Apple Watch",
+  "Loa",
+  "Phụ kiện"
+];
+
 
 function renderBoard(cat,rows){
   const card=document.getElementById(`board-${cat}`);
@@ -294,76 +304,147 @@ window.addEventListener('DOMContentLoaded',boot);
     <div class="subtitle">Bảng giá • Cập nhật: <span class="today"></span></div>
   </header>
 
-  <main class="wrap">
+   <main class="wrap">
     <div class="boards">
+
+      <!-- 1. AirPods -->
       <div class="card" id="board-AirPods">
         <div class="titlebar">AirPods</div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead>
+            <thead>
+              <tr>
+                <th>Sản phẩm</th>
+                <th>Đơn giá (VND)</th>
+                <th>Ghi chú</th>
+              </tr>
+            </thead>
             <tbody></tbody>
           </table>
         </div>
       </div>
+
+      <!-- 2. iPad -->
       <div class="card" id="board-iPad">
         <div class="titlebar">iPad</div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead>
+            <thead>
+              <tr>
+                <th>Sản phẩm</th>
+                <th>Đơn giá (VND)</th>
+                <th>Ghi chú</th>
+              </tr>
+            </thead>
             <tbody></tbody>
           </table>
         </div>
       </div>
+
+      <!-- 3. iPhone -->
       <div class="card" id="board-iPhone">
         <div class="titlebar">iPhone</div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead>
+            <thead>
+              <tr>
+                <th>Sản phẩm</th>
+                <th>Đơn giá (VND)</th>
+                <th>Ghi chú</th>
+              </tr>
+            </thead>
             <tbody></tbody>
           </table>
         </div>
       </div>
+
+      <!-- 4. MacBook -->
+      <div class="card" id="board-MacBook">
+        <div class="titlebar">MacBook</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Sản phẩm</th>
+                <th>Đơn giá (VND)</th>
+                <th>Ghi chú</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 5. Pencil -->
       <div class="card" id="board-Pencil">
         <div class="titlebar">Pencil</div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead>
+            <thead>
+              <tr>
+                <th>Sản phẩm</th>
+                <th>Đơn giá (VND)</th>
+                <th>Ghi chú</th>
+              </tr>
+            </thead>
             <tbody></tbody>
           </table>
         </div>
       </div>
-      <div class="card" id="board-MacBook">
-  <div class="titlebar">MacBook</div>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th>Sản phẩm</th>
-          <th>Đơn giá (VND)</th>
-          <th>Ghi chú</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
-</div>
-<div class="card" id="board-Phụ kiện">
-  <div class="titlebar">Phụ kiện</div>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th>Sản phẩm</th>
-          <th>Đơn giá (VND)</th>
-          <th>Ghi chú</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
-</div>
+
+      <!-- 6. Apple Watch -->
+      <div class="card" id="board-Apple Watch">
+        <div class="titlebar">Apple Watch</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Sản phẩm</th>
+                <th>Đơn giá (VND)</th>
+                <th>Ghi chú</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 7. Loa -->
+      <div class="card" id="board-Loa">
+        <div class="titlebar">Loa</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Sản phẩm</th>
+                <th>Đơn giá (VND)</th>
+                <th>Ghi chú</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 8. Phụ kiện -->
+      <div class="card" id="board-Phụ kiện">
+        <div class="titlebar">Phụ kiện</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Sản phẩm</th>
+                <th>Đơn giá (VND)</th>
+                <th>Ghi chú</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
 
     </div>
   </main>
+
 </body>
 </html>
