@@ -50,11 +50,13 @@
     font-size:24px;
     color:#8dc4ef;
   }
+
   .subtitle-small{
     font-size:60%; font-weight:600; opacity:.9;
     margin-left:1.5px; letter-spacing:-.2px;
     position:relative; top:-.5px;
   }
+  .subtitle{font-size:13px; opacity:.9}
 
   /* thanh tab chọn danh mục */
   .tabs{
@@ -143,25 +145,24 @@
   .pill.bad{background:var(--bad-bg); color:var(--bad-text); border:1px solid var(--bad-border)}
   .pill.blue{background:var(--blue-bg); color:var(--blue-text); border:1px solid var(--blue-border)}
 
-  /* Tỉ lệ 3 cột + căn giữa giá + ghi chú */
+  /* Tỉ lệ 3 cột + căn giữa giá + xích ghi chú */
   th:nth-child(1){ width:55%; }
   th:nth-child(2){ width:26%; text-align:center; }
-  th:nth-child(3){ width:19%; text-align:center; }  /* ✅ Ghi chú căn giữa */
+  th:nth-child(3){ width:19%; text-align:center; }
 
   td:nth-child(2){ 
     text-align:center;
   }
   td:nth-child(3){
     text-align:center;
-    padding:8px 16px;          /* ✅ không dính mép phải */
+    padding-right:10px;
   }
   td:nth-child(3) .pill{
     display:inline-flex;
     align-items:center;
     justify-content:center;
-    padding:4px 10px;
-    min-width:60px;
-    margin:0 auto;             /* ✅ căn giữa badge */
+    min-width:55px;
+    text-align:center;
   }
 
   /* Mobile */
@@ -186,16 +187,8 @@
     td:nth-child(3){
       white-space:nowrap;
     }
-
-    /* mobile cho cột ghi chú rộng hơn chút */
-    td:nth-child(3){
-      padding:8px 12px;
-    }
-    td:nth-child(3) .pill{
-      min-width:64px;
-    }
   }
- /* ====== FORM LIÊN HỆ GỌN ====== */
+  /* ====== FORM LIÊN HỆ GỌN ====== */
 .contact-box{
   margin-top:12px;
   padding:12px 16px;
@@ -240,7 +233,7 @@
 <script>
 const URL_ALL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vScB3O9RHORztA1jt0R9IU74vKx19WcpMgh_N6eOU2uKcmczj44re7jb7KqF4Acz-gwCIgPNK3THJlF/pub?output=csv";
 
-// 8 danh mục dùng cho tabs
+// danh sách danh mục sẽ dùng cho tabs
 const CATS = [
   "AirPods",
   "iPad",
@@ -251,6 +244,8 @@ const CATS = [
   "Loa",
   "Phụ kiện"
 ];
+
+
 
 let ALL_ROWS = [];
 let CURRENT_CAT = "AirPods";
@@ -321,8 +316,10 @@ function renderBoardFor(cat){
   const titlebar = document.querySelector('#board-main .titlebar');
   titlebar.textContent = cat;
 
+  // chuẩn hóa key cần tìm
   const key = cat.toLowerCase().trim();
 
+  // lọc theo danh_muc (đã lowerCase + trim khoảng trắng)
   const rows = ALL_ROWS.filter(x => {
     const dm = (x.danh_muc || '').toLowerCase().trim();
     return dm === key;
@@ -333,26 +330,28 @@ function renderBoardFor(cat){
     return;
   }
 
-  const groups={};
+  const groups = {};
   rows.forEach(r=>{
-    const g=(r.dong_san_pham||'Khác').trim();
+    const g = (r.dong_san_pham || 'Khác').trim();
     if(!groups[g]) groups[g]=[];
     groups[g].push(r);
   });
-  const ordered=Object.keys(groups).sort((a,b)=>a.localeCompare(b,'vi',{sensitivity:'base'}));
-  let html='';
+  const ordered = Object.keys(groups).sort((a,b)=>a.localeCompare(b,'vi',{sensitivity:'base'}));
+
+  let html = '';
   ordered.forEach(g=>{
-    html+=`<tr class='groupname'><td colspan='3'>${g}</td></tr>`;
+    html += `<tr class='groupname'><td colspan='3'>${g}</td></tr>`;
     groups[g].forEach(r=>{
-      html+=`<tr>
-        <td>${r.ten_san_pham||''}</td>
+      html += `<tr>
+        <td>${r.ten_san_pham || ''}</td>
         <td class='price'>${fmtPrice(r.don_gia_vnd)}</td>
         <td>${badge(r.ghi_chu)}</td>
       </tr>`;
     });
   });
-  tbody.innerHTML=html;
+  tbody.innerHTML = html;
 }
+
 
 function setupTabs(){
   const container = document.querySelector('.tabs');
@@ -389,14 +388,14 @@ async function boot(){
       `<tr><td colspan="3">Không tải được dữ liệu, bạn F5 lại giúp mình nha.</td></tr>`;
   }
 }
+
 window.addEventListener('DOMContentLoaded',boot);
 </script>
 </head>
 
 <body>
- <header class="wrap">
-  <div class="title">Cái tiệm bán táo <span class="subtitle-small">by Tina House</span></div>
-
+  <header class="wrap">
+    <div class="title">Cái tiệm bán táo <span class="subtitle-small">by Tina House</span></div>
  <!-- ⭐ FORM LIÊN HỆ GỌN -->
 <div class="contact-box">
   <div class="contact-title">📞 Liên hệ nhanh</div>
@@ -423,18 +422,16 @@ window.addEventListener('DOMContentLoaded',boot);
 </div>
 <!-- ⭐ END FORM LIÊN HỆ -->
 
-
-</header>
-
+  </header>
 
   <main class="wrap">
 
-    <!-- Thanh chọn danh mục -->
+    <!-- ✅ Thanh chọn danh mục -->
     <div class="tabs">
-      <!-- JS sẽ tự fill 8 nút từ mảng CATS -->
+      <!-- JS sẽ tự fill 6 nút từ mảng CATS -->
     </div>
 
-    <!-- 1 card, nội dung thay đổi theo tab -->
+    <!-- ✅ Chỉ còn 1 card, nội dung thay đổi theo tab -->
     <div class="card" id="board-main">
       <div class="titlebar">AirPods</div>
       <div class="table-wrap">
