@@ -18,13 +18,15 @@
     --header-text: #38B6FF;
     --card-titlebar: #E6F7FF;
     --hover: #f6fbff;
-    --shadow-card: 0 4px 12px rgba(18,183,255,0.06);
+    --shadow-card: 0 6px 18px rgba(18, 183, 255, 0.08);
     --ok-bg: #e6ffef;  --ok-text:#007a33;  --ok-border:#b8f5cf;
     --bad-bg:#ffeff0;  --bad-text:#b00020; --bad-border:#ffd0d3;
     --blue-bg:#e6f7ff; --blue-text:#055b8a; --blue-border:#c9eaff;
+    --radius-lg: 16px; --radius-sm: 10px;
+    --gap: 14px;
   }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; color:var(--text); background:var(--bg)}
+  *{box-sizing:border-box}
+  body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; color:var(--text); background:var(--bg)}
   .wrap{max-width:1200px; margin:0 auto; padding:14px 16px}
 
   header{position:sticky; top:0; z-index:10; background:var(--header-bg); color:var(--header-text); border-bottom:1px solid var(--border)}
@@ -32,84 +34,57 @@
   .subtitle-small{font-size:60%; font-weight:600; opacity:.9; margin-left:1.5px; letter-spacing:-.2px; position:relative; top:-.5px}
   .subtitle{font-size:13px; opacity:.9}
 
-  .boards{display:grid; grid-template-columns:1fr; gap:14px; margin-top:10px}
-  @media (min-width:900px){ .boards{grid-template-columns:1fr 1fr} }
+  .boards{display:grid; grid-template-columns:1fr; gap:16px; margin-top:12px}
+  @media (min-width: 900px){ .boards{grid-template-columns: 1fr 1fr} }
 
-  .card{background:#fff; border:1.2px solid var(--border); border-radius:14px; overflow:hidden; box-shadow:var(--shadow-card)}
-  .card .titlebar{background:var(--card-titlebar); padding:9px 14px; font-weight:800; border-bottom:1px solid var(--border); color:var(--brand-dark)}
-  .table-wrap{overflow-x:hidden; position:relative} /* đổi sang hidden để không lòi scroll ngang */
+  .card{background:#fff; border:1.5px solid var(--border); border-radius:14px; overflow:hidden; box-shadow:var(--shadow-card)}
+  .card .titlebar{background:var(--card-titlebar); padding:10px 16px; font-weight:800; border-bottom:1px solid var(--border); color:var(--brand-dark)}
+  .table-wrap{overflow:auto}
   table{width:100%; border-collapse:collapse; font-size:14px; table-layout:fixed}
-  th,td{border-bottom:1px solid var(--border); text-align:left; vertical-align:middle}
-  th{font-weight:800; padding:9px 6px; white-space:nowrap}
-  td{padding:8px 6px; white-space:nowrap}
-  td.price{text-align:right; font-variant-numeric:tabular-nums; padding-right:4px}
-  td:last-child{text-align:right;}
+  th,td{padding:10px 8px; border-bottom:1px solid var(--border); text-align:left; white-space:nowrap}
+  th{font-weight:800}
+  td.price{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap}
   tbody tr:hover{background:var(--hover)}
-  tbody tr.groupname td{background:#f9fcff; font-weight:900; font-size:15px; color:#082947; padding:8px 6px}
-
-  .pill{display:inline-block; padding:2px 7px; border-radius:999px; font-size:12px; font-weight:700; white-space:nowrap}
+  tbody tr.groupname td{background:#f9fcff; font-weight:900; font-size:15px; color:#082947}
+.pill{display:inline-block; padding:2px 8px; border-radius:999px; font-size:12px; font-weight:800; white-space:nowrap}
   .pill.ok{background:var(--ok-bg); color:var(--ok-text); border:1px solid var(--ok-border)}
   .pill.bad{background:var(--bad-bg); color:var(--bad-text); border:1px solid var(--bad-border)}
   .pill.blue{background:var(--blue-bg); color:var(--blue-text); border:1px solid var(--blue-border)}
 
-  /* Điều chỉnh khoảng cách cột cho gọn hơn */
-  th:nth-child(1){width:67%;} /* sản phẩm rộng hơn */
-  th:nth-child(2){width:20%; text-align:right;}
-  th:nth-child(3){width:13%; text-align:right;}
+  /* Căn cột & tối ưu mobile */
+  th:nth-child(1){width:60%;}
+  th:nth-child(2){width:23%; text-align:right;}
+  th:nth-child(3){width:17%; text-align:right;}
   td:nth-child(2){text-align:right;}
   td:nth-child(3){text-align:right;}
 
   @media (max-width:640px){
-    /* Giữ dáng desktop, chỉ co tỉ lệ (kết hợp JS autoscale) */
-    table{font-size:14px;}
-    th{font-size:13px;}
-    th,td{padding:6px 6px;}
-    td:first-child{white-space:nowrap;}
-  }
+    table{font-size:13px;}
     th{font-size:12.5px;}
-    th,td{padding:6px 3px;}
-    td:first-child{white-space:normal; word-break:break-word;}
+    th,td{padding:8px 6px;}
+    td:first-child{word-break:break-word; white-space:normal;}
   }
 </style>
 
 <script>
 const URL_ALL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vScB3O9RHORztA1jt0R9IU74vKx19WcpMgh_N6eOU2uKcmczj44re7jb7KqF4Acz-gwCIgPNK3THJlF/pub?output=csv";
-function parseCSV(t){const r=[];let n=0,e="",a=[],o=!1;for(;n<t.length;){const i=t[n];if(o)if('"'==i)if('"'==t[n+1])e+='"',n++;else o=!1;else e+=i;else if(","==i)a.push(e),e="";else if("\n"==i)a.push(e),r.push(a),a=[],e="";else if('"'==i)o=!0;else e+=i;n++}return e.length||a.length?(a.push(e),r.push(a)):r}
-function normalizeHeader(t){return(t||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"_").replace(/^_|_$/g,"")}
-function mapHeaderVN(t){const r=normalizeHeader(t),n={danh_muc:"danh_muc",dong_san_pham:"dong_san_pham",ten_san_pham:"ten_san_pham",don_gia_vnd:"don_gia_vnd",ghi_chu:"ghi_chu"};return n[r]||r}
-async function fetchAll(t){const r=await fetch(t,{cache:"no-store"});if(!r.ok)throw new Error("HTTP "+r.status);const n=await r.text(),e=parseCSV(n),a=e[0].map(mapHeaderVN);return e.slice(1).filter(t=>t.some(t=>(t||"").trim().length)).map(t=>{const r={};return a.forEach((n,e)=>r[n]=(t[e]||"").trim()),r})}
-function fmtPrice(t){const r=(t||"").toString().replace(/[.,]/g,""),n=parseFloat(r);return!isNaN(n)&&n>0?n.toLocaleString("vi-VN"):"—"}
-function badge(t){if(!t)return"";const r=t.toLowerCase();return r.includes("hết")?`<span class='pill bad'>${t}</span>`:r.includes("còn")?`<span class='pill ok'>${t}</span>`:`<span class='pill blue'>${t}</span>`}
-const CATS=["AirPods","iPad","iPhone","Pencil"];
-function renderBoard(t,r){const n=document.getElementById(`board-${t}`),e=n.querySelector("tbody"),a={};r.forEach(t=>{const r=(t.dong_san_pham||"Khác").trim();a[r]||(a[r]=[]),a[r].push(t)});const o=Object.keys(a).sort((t,r)=>t.localeCompare(r,"vi",{sensitivity:"base"}));let i="";o.forEach(t=>{i+=`<tr class='groupname'><td colspan='3'>${t}</td></tr>`,a[t].forEach(t=>{i+=`<tr><td>${t.ten_san_pham||""}</td><td class='price'>${fmtPrice(t.don_gia_vnd)}</td><td>${badge(t.ghi_chu)}</td></tr>`})}),e.innerHTML=i}
-async function boot(){const t=new Date;document.querySelector(".today").textContent=`${String(t.getDate()).padStart(2,"0")}/${String(t.getMonth()+1).padStart(2,"0")}/${t.getFullYear()}`;try{const t=await fetchAll(URL_ALL);CATS.forEach(r=>renderBoard(r,t.filter(t=>(t.danh_muc||"").toLowerCase()==r.toLowerCase())))}catch(t){console.error(t)}}
-window.addEventListener("DOMContentLoaded",boot);
 
-// === Autoscale bảng trên mobile: giữ layout giống desktop, tự co cho vừa màn hình ===
-function autoscale(){
-  const isMobile = window.matchMedia('(max-width: 640px)').matches;
-  document.querySelectorAll('.table-wrap').forEach(wrap=>{
-    const table = wrap.querySelector('table');
-    if(!table) return;
-    table.style.transform='';
-    table.style.transformOrigin='left top';
-    wrap.style.height='';
-    if(isMobile){
-      const cw = wrap.clientWidth; // bề rộng khung
-      const sw = table.scrollWidth; // bề rộng thực của bảng
-      if(sw>0 && cw>0 && sw>cw){
-        const scale = Math.max(0.75, Math.min(1, cw/sw)); // co tối đa tới 75%
-        table.style.transform = `scale(${scale})`;
-        // set chiều cao khung theo chiều cao đã co để tránh bị cắt
-        const rect = table.getBoundingClientRect();
-        wrap.style.height = (rect.height)+ 'px';
-      }
-    }
-  });
+function parseCSV(text){
+  const rows=[]; let i=0, field='', row=[], inQuotes=false;
+  while(i<text.length){ const c=text[i]; if(inQuotes){ if(c==='"'){ if(text[i+1]==='"'){ field+='"'; i++; } else inQuotes=false; } else field+=c; } else { if(c===','){ row.push(field); field=''; } else if(c==='\n'){ row.push(field); rows.push(row); row=[]; field=''; } else if(c==='"'){ inQuotes=true; } else field+=c; } i++; }
+  if(field.length||row.length){ row.push(field); rows.push(row); }
+  return rows;
 }
-window.addEventListener('resize', autoscale);
-window.addEventListener('orientationchange', autoscale);
-document.addEventListener('readystatechange', ()=>{ if(document.readyState==='complete') autoscale(); });
+function normalizeHeader(h){ return (h||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,''); }
+function mapHeaderVN(h){ const key=normalizeHeader(h); const map={ 'danh_muc':'danh_muc','dong_san_pham':'dong_san_pham','ten_san_pham':'ten_san_pham','don_gia_vnd':'don_gia_vnd','ghi_chu':'ghi_chu'}; return map[key]||key; }
+async function fetchAll(url){ const res=await fetch(url,{cache:'no-store'}); if(!res.ok) throw new Error('HTTP '+res.status); const text=await res.text(); const rows=parseCSV(text); const headers=rows[0].map(mapHeaderVN); return rows.slice(1).filter(r=>r.some(x=>(x||'').trim().length)).map(r=>{const o={}; headers.forEach((h,i)=>o[h]=(r[i]||'').trim()); return o;}); }
+function fmtPrice(v){ const cleaned=(v||'').toString().replace(/[.,]/g,''); const n=parseFloat(cleaned); return (!isNaN(n)&&n>0)? n.toLocaleString('vi-VN'):'—'; }
+function badge(text){ if(!text) return ''; const t=text.toLowerCase(); if(t.includes('hết')) return `<span class='pill bad'>${text}</span>`; if(t.includes('còn')) return `<span class='pill ok'>${text}</span>`; return `<span class='pill blue'>${text}</span>`; }
+
+const CATS=["AirPods","iPad","iPhone","Pencil"];
+function renderBoard(cat,rows){ const card=document.getElementById(`board-${cat}`); const tbody=card.querySelector('tbody'); const groups={}; rows.forEach(r=>{ const g=(r.dong_san_pham||'Khác').trim(); if(!groups[g]) groups[g]=[]; groups[g].push(r); }); const ordered=Object.keys(groups).sort((a,b)=>a.localeCompare(b,'vi',{sensitivity:'base'})); let html=''; ordered.forEach(g=>{ html+=`<tr class='groupname'><td colspan='3'>${g}</td></tr>`; groups[g].forEach(r=>{ html+=`<tr><td>${r.ten_san_pham||''}</td><td class='price'>${fmtPrice(r.don_gia_vnd)}</td><td>${badge(r.ghi_chu)}</td></tr>`; }); }); tbody.innerHTML=html; }
+async function boot(){ const d=new Date(); document.querySelector('.today').textContent=`${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`; try{ const ALL=await fetchAll(URL_ALL); CATS.forEach(cat=>renderBoard(cat,ALL.filter(x=>(x.danh_muc||'').toLowerCase()==cat.toLowerCase())));}catch(e){console.error(e);} }
+window.addEventListener('DOMContentLoaded',boot);
 </script>
 </head>
 <body>
