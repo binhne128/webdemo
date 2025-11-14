@@ -15,7 +15,7 @@
     --text: #0b1220;
     --bg: #FFFFFF;
     --header-bg: #DAF0F7;
-    --header-text: #B4B4B4;
+    --header-text: #38B6FF;
     --card-titlebar: #E6F7FF;
     --hover: #f6fbff;
     --shadow-card: 0 6px 18px rgba(18, 183, 255, 0.08);
@@ -41,7 +41,22 @@
   .card .titlebar{background:var(--card-titlebar); padding:10px 16px; font-weight:800; border-bottom:1px solid var(--border); color:var(--brand-dark)}
   .table-wrap{overflow:auto}
   table{width:100%; border-collapse:collapse; font-size:14px; table-layout:fixed}
-  th,td18%; text-align:right;}
+  th,td{padding:10px 8px; border-bottom:1px solid var(--border); text-align:left; white-space:nowrap}
+  th{font-weight:800}
+  td.price{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap}
+  tbody tr:hover{background:var(--hover)}
+  tbody tr.groupname td{background:#f9fcff; font-weight:900; font-size:15px; color:#082947}
+
+  .pill{display:inline-block; padding:2px 8px; border-radius:999px; font-size:12px; font-weight:800; white-space:nowrap}
+  .pill.ok{background:var(--ok-bg); color:var(--ok-text); border:1px solid var(--ok-border)}
+  .pill.bad{background:var(--bad-bg); color:var(--bad-text); border:1px solid var(--bad-border)}
+  .pill.blue{background:var(--blue-bg); color:var(--blue-text); border:1px solid var(--blue-border)}
+
+  /* Căn cột: Sản phẩm – Đơn giá – Ghi chú
+     Giảm width cột 1 để kéo cột giá lại gần hơn */
+  th:nth-child(1){width:55%;}
+  th:nth-child(2){width:27%; text-align:right;}
+  th:nth-child(3){width:18%; text-align:right;}
   td:nth-child(2){text-align:right;}
   td:nth-child(3){text-align:right;}
 
@@ -58,19 +73,106 @@ const URL_ALL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vScB3O9RHORztA1
 
 function parseCSV(text){
   const rows=[]; let i=0, field='', row=[], inQuotes=false;
-  while(i<text.length){ const c=text[i]; if(inQuotes){ if(c==='"'){ if(text[i+1]==='"'){ field+='"'; i++; } else inQuotes=false; } else field+=c; } else { if(c===','){ row.push(field); field=''; } else if(c==='\n'){ row.push(field); rows.push(row); row=[]; field=''; } else if(c==='"'){ inQuotes=true; } else field+=c; } i++; }
+  while(i<text.length){
+    const c=text[i];
+    if(inQuotes){
+      if(c==='"'){
+        if(text[i+1]==='"'){ field+='"'; i++; }
+        else inQuotes=false;
+      } else field+=c;
+    } else {
+      if(c===','){ row.push(field); field=''; }
+      else if(c==='\n'){ row.push(field); rows.push(row); row=[]; field=''; }
+      else if(c==='"'){ inQuotes=true; }
+      else field+=c;
+    }
+    i++;
+  }
   if(field.length||row.length){ row.push(field); rows.push(row); }
   return rows;
 }
-function normalizeHeader(h){ return (h||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,''); }
-function mapHeaderVN(h){ const key=normalizeHeader(h); const map={ 'danh_muc':'danh_muc','dong_san_pham':'dong_san_pham','ten_san_pham':'ten_san_pham','don_gia_vnd':'don_gia_vnd','ghi_chu':'ghi_chu'}; return map[key]||key; }
-async function fetchAll(url){ const res=await fetch(url,{cache:'no-store'}); if(!res.ok) throw new Error('HTTP '+res.status); const text=await res.text(); const rows=parseCSV(text); const headers=rows[0].map(mapHeaderVN); return rows.slice(1).filter(r=>r.some(x=>(x||'').trim().length)).map(r=>{const o={}; headers.forEach((h,i)=>o[h]=(r[i]||'').trim()); return o;}); }
-function fmtPrice(v){ const cleaned=(v||'').toString().replace(/[.,]/g,''); const n=parseFloat(cleaned); return (!isNaN(n)&&n>0)? n.toLocaleString('vi-VN'):'—'; }
-function badge(text){ if(!text) return ''; const t=text.toLowerCase(); if(t.includes('hết')) return `<span class='pill bad'>${text}</span>`; if(t.includes('còn')) return `<span class='pill ok'>${text}</span>`; return `<span class='pill blue'>${text}</span>`; }
+function normalizeHeader(h){
+  return (h||'').toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g,'')
+    .replace(/[^a-z0-9]+/g,'_')
+    .replace(/^_|_$/g,'');
+}
+function mapHeaderVN(h){
+  const key=normalizeHeader(h);
+  const map={
+    'danh_muc':'danh_muc',
+    'dong_san_pham':'dong_san_pham',
+    'ten_san_pham':'ten_san_pham',
+    'don_gia_vnd':'don_gia_vnd',
+    'ghi_chu':'ghi_chu'
+  };
+  return map[key]||key;
+}
+async function fetchAll(url){
+  const res=await fetch(url,{cache:'no-store'});
+  if(!res.ok) throw new Error('HTTP '+res.status);
+  const text=await res.text();
+  const rows=parseCSV(text);
+  const headers=rows[0].map(mapHeaderVN);
+  return rows.slice(1)
+    .filter(r=>r.some(x=>(x||'').trim().length))
+    .map(r=>{
+      const o={};
+      headers.forEach((h,i)=>o[h]=(r[i]||'').trim());
+      return o;
+    });
+}
+function fmtPrice(v){
+  const cleaned=(v||'').toString().replace(/[.,]/g,'');
+  const n=parseFloat(cleaned);
+  return (!isNaN(n)&&n>0)? n.toLocaleString('vi-VN'):'—';
+}
+function badge(text){
+  if(!text) return '';
+  const t=text.toLowerCase();
+  if(t.includes('hết')) return `<span class='pill bad'>${text}</span>`;
+  if(t.includes('còn')) return `<span class='pill ok'>${text}</span>`;
+  return `<span class='pill blue'>${text}</span>`;
+}
 
 const CATS=["AirPods","iPad","iPhone","Pencil"];
-function renderBoard(cat,rows){ const card=document.getElementById(`board-${cat}`); const tbody=card.querySelector('tbody'); const groups={}; rows.forEach(r=>{ const g=(r.dong_san_pham||'Khác').trim(); if(!groups[g]) groups[g]=[]; groups[g].push(r); }); const ordered=Object.keys(groups).sort((a,b)=>a.localeCompare(b,'vi',{sensitivity:'base'})); let html=''; ordered.forEach(g=>{ html+=`<tr class='groupname'><td colspan='3'>${g}</td></tr>`; groups[g].forEach(r=>{ html+=`<tr><td>${r.ten_san_pham||''}</td><td class='price'>${fmtPrice(r.don_gia_vnd)}</td><td>${badge(r.ghi_chu)}</td></tr>`; }); }); tbody.innerHTML=html; }
-async function boot(){ const d=new Date(); document.querySelector('.today').textContent=`${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`; try{ const ALL=await fetchAll(URL_ALL); CATS.forEach(cat=>renderBoard(cat,ALL.filter(x=>(x.danh_muc||'').toLowerCase()==cat.toLowerCase())));}catch(e){console.error(e);} }
+function renderBoard(cat,rows){
+  const card=document.getElementById(`board-${cat}`);
+  const tbody=card.querySelector('tbody');
+  const groups={};
+  rows.forEach(r=>{
+    const g=(r.dong_san_pham||'Khác').trim();
+    if(!groups[g]) groups[g]=[];
+    groups[g].push(r);
+  });
+  const ordered=Object.keys(groups).sort((a,b)=>a.localeCompare(b,'vi',{sensitivity:'base'}));
+  let html='';
+  ordered.forEach(g=>{
+    html+=`<tr class='groupname'><td colspan='3'>${g}</td></tr>`;
+    groups[g].forEach(r=>{
+      html+=`<tr>
+        <td>${r.ten_san_pham||''}</td>
+        <td class='price'>${fmtPrice(r.don_gia_vnd)}</td>
+        <td>${badge(r.ghi_chu)}</td>
+      </tr>`;
+    });
+  });
+  tbody.innerHTML=html;
+}
+async function boot(){
+  const d=new Date();
+  document.querySelector('.today').textContent=
+    `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
+  try{
+    const ALL=await fetchAll(URL_ALL);
+    CATS.forEach(cat=>{
+      const rows=ALL.filter(x=>(x.danh_muc||'').toLowerCase()==cat.toLowerCase());
+      renderBoard(cat,rows);
+    });
+  }catch(e){
+    console.error(e);
+  }
+}
 window.addEventListener('DOMContentLoaded',boot);
 </script>
 </head>
@@ -84,19 +186,39 @@ window.addEventListener('DOMContentLoaded',boot);
     <div class="boards">
       <div class="card" id="board-AirPods">
         <div class="titlebar">AirPods</div>
-        <div class="table-wrap"><table><thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead><tbody></tbody></table></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
       </div>
       <div class="card" id="board-iPad">
         <div class="titlebar">iPad</div>
-        <div class="table-wrap"><table><thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead><tbody></tbody></table></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
       </div>
       <div class="card" id="board-iPhone">
         <div class="titlebar">iPhone</div>
-        <div class="table-wrap"><table><thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead><tbody></tbody></table></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
       </div>
       <div class="card" id="board-Pencil">
         <div class="titlebar">Pencil</div>
-        <div class="table-wrap"><table><thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead><tbody></tbody></table></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Sản phẩm</th><th>Đơn giá (VND)</th><th>Ghi chú</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
       </div>
     </div>
   </main>
