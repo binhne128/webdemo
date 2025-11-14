@@ -246,7 +246,8 @@ function badge(text){
   return `<span class='pill blue'>${text}</span>`;
 }
 
-const CATS=["AirPods","iPad","iPhone","Pencil"];
+const CATS=["AirPods","iPad","MacBook","iPhone","Pencil","Phụ kiện"];
+
 function renderBoard(cat,rows){
   const card=document.getElementById(`board-${cat}`);
   const tbody=card.querySelector('tbody');
@@ -331,6 +332,37 @@ window.addEventListener('DOMContentLoaded',boot);
           </table>
         </div>
       </div>
+      <div class="card" id="board-MacBook">
+  <div class="titlebar">MacBook</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Sản phẩm</th>
+          <th>Đơn giá (VND)</th>
+          <th>Ghi chú</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+<div class="card" id="board-Phụ kiện">
+  <div class="titlebar">Phụ kiện</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Sản phẩm</th>
+          <th>Đơn giá (VND)</th>
+          <th>Ghi chú</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
     </div>
   </main>
 </body>
