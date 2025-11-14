@@ -117,37 +117,41 @@
   .pill.bad{background:var(--bad-bg); color:var(--bad-text); border:1px solid var(--bad-border)}
   .pill.blue{background:var(--blue-bg); color:var(--blue-text); border:1px solid var(--blue-border)}
 
-  /* Tỉ lệ 3 cột: Sản phẩm – Đơn giá – Ghi chú (layout cứng) */
-  th:nth-child(1){width:60%;}
-  th:nth-child(2){width:23%; text-align:right;}
-  th:nth-child(3){width:17%; text-align:right;}
-  td:nth-child(2){text-align:right;}
-  td:nth-child(3){text-align:right;}
+
+/* Tỉ lệ 3 cột: Sản phẩm – Đơn giá – Ghi chú (layout cứng) */
+th:nth-child(1){width:55%;}
+th:nth-child(2){width:26%; text-align:right;}
+th:nth-child(3){width:19%; text-align:right;}
+td:nth-child(2){text-align:right;}
+td:nth-child(3){text-align:right;}
+
 
   /* Mobile: giữ layout, tránh dư bảng */
-  @media (max-width:640px){
-    .wrap{padding:12px 10px;}
+ @media (max-width:640px){
+  .wrap{padding:12px 10px;}
 
-    table{font-size:13px;}
-    th{font-size:12.5px;}
+  table{font-size:13px;}
+  th{font-size:12.5px;}
 
-    th,td{
-      padding:8px 4px;
-      white-space:normal;          /* cho phép bẻ dòng khi cần */
-    }
-
-    /* Cột sản phẩm được bẻ dòng, tránh tràn ngang */
-    td:first-child{
-      word-break:break-word;
-    }
-
-    /* Cột giá + ghi chú vẫn gọn 1 dòng */
-    th:nth-child(2),
-    td:nth-child(2),
-    td .pill{
-      white-space:nowrap;
-    }
+  th,td{
+    padding:8px 4px;
+    white-space:nowrap;        /* mặc định không bẻ dòng */
   }
+
+  /* Riêng cột sản phẩm được phép xuống dòng khi dài */
+  td:first-child{
+    white-space:normal;
+    word-break:break-word;
+  }
+
+  /* Giá + badge ghi chú luôn 1 dòng cho gọn */
+  th:nth-child(2),
+  td:nth-child(2),
+  td:nth-child(3){
+    white-space:nowrap;
+  }
+}
+
 </style>
 
 <script>
