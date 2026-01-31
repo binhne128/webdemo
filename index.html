@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Cái tiệm bán táo – by Tina House</title>
-<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsSAAALEgHS3X78AAAB40lEQVR4nO2aMW7bQBBFZ0f2D8k0CwSEjDgJw5S0gJqVJgQWkJ5P4A0J4gG5p9aDkG8o3b2pC7h7n2z0u0i9d4v8K5w3zXK0G1p5b5+v1r2b8fjO5uR3w0mF8vQf9cQk5yq4vC6sL3i8Kj8VmlLZ8m7q1B2K1bQ3oWw7Cw4I5U6bJ3V6l3H2m7eyEo6Wb3Tt7JcV3KQkS6G0hU6m0L3X0d2vC2qV9IYh2m5JjG2kq3b6h1dBvV7MgdY4r5cV2l7Vv8pYk3v7YkJm0z1mJ1m3dWyfV3vY0kqYl4lJf3w1g2iWv9A1qWm9Xy0xJmJ7e3m3y0o9m1zYz3g9Wc6C7S6n6VqfRk3u1h8L9nJm3z8x5rOZQX3Sx3y4VwJ7kT7d2CkHPq2Jv0uQG6yq4o5Q8xT1z2aJg1v8b3hQ3+0c6K2m0Cwq3mJb3qO4QGz5qvD8y58S4rVx2z2t3d9Y6e9M1v0cQd9dD3xi1A722bQB67UCvbRuAXjvQa/vGA/Bf2Wl1acRkdtgAAAAASUVORK5CYII=" />
+
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
@@ -23,8 +23,6 @@
     --ok-bg: #e6ffef;  --ok-text:#007a33;  --ok-border:#b8f5cf;
     --bad-bg:#ffeff0;  --bad-text:#b00020; --bad-border:#ffd0d3;
     --blue-bg:#e6f7ff; --blue-text:#055b8a; --blue-border:#c9eaff;
-    --radius-lg: 16px; --radius-sm: 10px;
-    --gap: 14px;
   }
   *{box-sizing:border-box}
   body{
@@ -34,9 +32,9 @@
     background:var(--bg);
     overflow-x:hidden;
   }
-
   .wrap{max-width:1200px; margin:0 auto; padding:14px 16px}
 
+  /* HEADER */
   header{
     position:sticky; top:0; z-index:10;
     background:var(--header-bg);
@@ -44,50 +42,42 @@
     border-bottom:1px solid var(--border);
     box-shadow:0 2px 6px rgba(0,0,0,0.04);
   }
+  .title-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
   .title{
     font-family: 'Comfortaa', system-ui, sans-serif;
     font-weight:700;
     font-size:24px;
     color:#8dc4ef;
   }
-
   .subtitle-small{
     font-size:60%; font-weight:600; opacity:.9;
     margin-left:1.5px; letter-spacing:-.2px;
     position:relative; top:-.5px;
   }
-  .subtitle{font-size:13px; opacity:.9}
 
-  /* thanh tab chọn danh mục */
+  /* TABS */
   .tabs{
-    margin-top:14px;
-    margin-bottom:14px;
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
+    margin-top:14px; margin-bottom:14px;
+    display:flex; flex-wrap:wrap; gap:8px;
   }
   .tab-btn{
-    border:none;
-    outline:none;
-    cursor:pointer;
-    padding:8px 18px;
-    border-radius:999px;
-    background:#ffffff;
-    color:#082947;
-    font-weight:700;
-    font-size:14px;
+    border:none; outline:none; cursor:pointer;
+    padding:8px 18px; border-radius:999px;
+    background:#ffffff; color:#082947;
+    font-weight:700; font-size:14px;
     box-shadow:0 0 0 1px var(--border);
     transition:all .15s ease;
   }
-  .tab-btn:hover{
-    box-shadow:0 0 0 1px var(--brand-dark);
-  }
+  .tab-btn:hover{ box-shadow:0 0 0 1px var(--brand-dark); }
   .tab-btn.active{
-    background:#123f9d;
-    color:#ffffff;
-    box-shadow:none;
+    background:#123f9d; color:#ffffff; box-shadow:none;
   }
 
+  /* BẢNG GIÁ */
   .card{
     background:#fff;
     border:1.5px solid var(--border);
@@ -97,168 +87,85 @@
   }
   .card .titlebar{
     background:var(--card-titlebar);
-    padding:10px 16px;
-    font-weight:800;
+    padding:10px 16px; font-weight:800;
     border-bottom:1px solid var(--border);
     color:var(--brand-dark);
   }
-  .table-wrap{
-    overflow-x:hidden;
-    overflow-y:auto;
-  }
-
-  table{
-    width:100%;
-    border-collapse:collapse;
-    font-size:14px;
-    table-layout:fixed;
-  }
+  .table-wrap{ overflow-x:hidden; overflow-y:auto; }
+  table{ width:100%; border-collapse:collapse; font-size:14px; table-layout:fixed; }
   th,td{
-    padding:10px 8px;
-    border-bottom:1px solid var(--border);
-    text-align:left;
-    white-space:nowrap;
+    padding:10px 8px; border-bottom:1px solid var(--border);
+    text-align:left; white-space:nowrap;
   }
   th{font-weight:800}
   td.price{
-    text-align:center;
-    font-variant-numeric:tabular-nums;
-    white-space:nowrap;
+    text-align:center; font-variant-numeric:tabular-nums; white-space:nowrap;
   }
   tbody tr:hover{background:var(--hover)}
+  
+  /* Nhóm sản phẩm */
   tbody tr.groupname td{
-    background:#f9fcff;
-    font-weight:900;
-    font-size:15px;
-    color:#082947;
+    background:#f9fcff; font-weight:900; font-size:15px; color:#082947;
   }
 
+  /* Nhãn (Mới, Còn hàng...) */
   .pill{
-    display:inline-block;
-    padding:2px 8px;
-    border-radius:999px;
-    font-size:12px;
-    font-weight:800;
-    white-space:nowrap;
+    display:inline-block; padding:2px 8px;
+    border-radius:999px; font-size:12px; font-weight:800; white-space:nowrap;
   }
   .pill.ok{background:var(--ok-bg); color:var(--ok-text); border:1px solid var(--ok-border)}
   .pill.bad{background:var(--bad-bg); color:var(--bad-text); border:1px solid var(--bad-border)}
   .pill.blue{background:var(--blue-bg); color:var(--blue-text); border:1px solid var(--blue-border)}
 
-  /* Tỉ lệ 3 cột + căn giữa giá + xích ghi chú */
+  /* Căn chỉnh cột */
   th:nth-child(1){ width:55%; }
   th:nth-child(2){ width:26%; text-align:center; }
   th:nth-child(3){ width:19%; text-align:center; }
-
-  td:nth-child(2){ 
-    text-align:center;
-  }
-  td:nth-child(3){
-    text-align:center;
-    padding-right:10px;
-  }
+  td:nth-child(3){ text-align:center; padding-right:10px; }
   td:nth-child(3) .pill{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    min-width:55px;
-    text-align:center;
+    display:inline-flex; align-items:center; justify-content:center;
+    min-width:55px; text-align:center;
   }
 
   /* Mobile */
   @media (max-width:640px){
     .wrap{padding:12px 10px;}
-
     table{font-size:13px;}
-    th{font-size:12.5px;}
-
-    th,td{
-      padding:8px 4px;
-      white-space:nowrap;
-    }
-    td:first-child{
-      white-space:normal;
-      word-break:break-word;
-    }
-    th:nth-child(2){
-      text-align:center;
-    }
-    td:nth-child(2),
-    td:nth-child(3){
-      white-space:nowrap;
-    }
+    th,td{ padding:8px 4px; white-space:nowrap; }
+    td:first-child{ white-space:normal; word-break:break-word; }
   }
-  /* ====== FORM LIÊN HỆ GỌN ====== */
-.contact-box{
-  margin-top:12px;
-  padding:12px 16px;
-  background:#e8f6ff;
-  border:1.5px solid var(--border);
-  border-radius:14px;
-  box-shadow:0 4px 10px rgba(18,183,255,0.08);
-  color:#082947;
-}
 
-.contact-title{
-  font-weight:800;
-  font-size:15px;
-  color:#0B8ED1;
-  margin-bottom:6px;
-}
-
-.contact-info{
-  font-size:14px;
-  line-height:1.55;
-}
-
-.contact-info a{
-  color:#0B8ED1;
-  font-weight:700;
-  text-decoration:none;
-}
-
-.contact-info a:hover{
-  text-decoration:underline;
-}
-
-/* Mobile */
-@media (max-width:640px){
+  /* FORM LIÊN HỆ GỌN */
   .contact-box{
-    padding:12px;
+    margin-top:12px; padding:12px 16px;
+    background:#e8f6ff; border:1.5px solid var(--border);
+    border-radius:14px; box-shadow:0 4px 10px rgba(18,183,255,0.08);
+    color:#082947;
   }
-}
-
+  .contact-title{ font-weight:800; font-size:15px; color:#0B8ED1; margin-bottom:6px; }
+  .contact-info{ font-size:14px; line-height:1.55; }
+  .contact-info a{ color:#0B8ED1; font-weight:700; text-decoration:none; }
+  .contact-info a:hover{ text-decoration:underline; }
 </style>
 
 <script>
+// LINK GOOGLE SHEET CỦA BẠN (CSV)
 const URL_ALL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vScB3O9RHORztA1jt0R9IU74vKx19WcpMgh_N6eOU2uKcmczj44re7jb7KqF4Acz-gwCIgPNK3THJlF/pub?output=csv";
 
-// danh sách danh mục sẽ dùng cho tabs
-const CATS = [
-  "AirPods",
-  "iPad",
-  "iPhone",
-  "MacBook",
-  "Pencil",
-  "Apple Watch",
-  "Loa",
-  "Phụ kiện"
-];
-
-
+// DANH SÁCH DANH MỤC (TABS)
+const CATS = ["AirPods", "iPad", "iPhone", "MacBook", "Pencil", "Apple Watch", "Loa", "Phụ kiện"];
 
 let ALL_ROWS = [];
 let CURRENT_CAT = "AirPods";
 
+// Hàm đọc CSV thủ công (để không cần thư viện ngoài)
 function parseCSV(text){
   const rows=[]; let i=0, field='', row=[], inQuotes=false;
   while(i<text.length){
     const c=text[i];
     if(inQuotes){
-      if(c==='"'){
-        if(text[i+1]==='"'){ field+='"'; i++; }
-        else inQuotes=false;
-      } else field+=c;
+      if(c==='"'){ if(text[i+1]==='"'){ field+='"'; i++; } else inQuotes=false; }
+      else field+=c;
     } else {
       if(c===','){ row.push(field); field=''; }
       else if(c==='\n'){ row.push(field); rows.push(row); row=[]; field=''; }
@@ -270,39 +177,31 @@ function parseCSV(text){
   if(field.length||row.length){ row.push(field); rows.push(row); }
   return rows;
 }
-function normalizeHeader(h){
-  return (h||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'');
-}
+
+// Chuẩn hóa tên cột để tránh lỗi đánh máy
 function mapHeaderVN(h){
-  const key=normalizeHeader(h);
-  const map={
-    'danh_muc':'danh_muc',
-    'dong_san_pham':'dong_san_pham',
-    'ten_san_pham':'ten_san_pham',
-    'don_gia_vnd':'don_gia_vnd',
-    'ghi_chu':'ghi_chu'
-  };
+  const key=(h||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'');
+  const map={'danh_muc':'danh_muc','dong_san_pham':'dong_san_pham','ten_san_pham':'ten_san_pham','don_gia_vnd':'don_gia_vnd','ghi_chu':'ghi_chu'};
   return map[key]||key;
 }
+
 async function fetchAll(url){
   const res=await fetch(url,{cache:'no-store'});
   if(!res.ok) throw new Error('HTTP '+res.status);
   const text=await res.text();
   const rows=parseCSV(text);
   const headers=rows[0].map(mapHeaderVN);
-  return rows.slice(1)
-    .filter(r=>r.some(x=>(x||'').trim().length))
-    .map(r=>{
-      const o={};
-      headers.forEach((h,i)=>o[h]=(r[i]||'').trim());
-      return o;
-    });
+  return rows.slice(1).filter(r=>r.some(x=>(x||'').trim().length)).map(r=>{
+    const o={}; headers.forEach((h,i)=>o[h]=(r[i]||'').trim()); return o;
+  });
 }
+
 function fmtPrice(v){
   const cleaned=(v||'').toString().replace(/[.,]/g,'');
   const n=parseFloat(cleaned);
   return (!isNaN(n)&&n>0)? n.toLocaleString('vi-VN'):'—';
 }
+
 function badge(text){
   if(!text) return '';
   const t=text.toLowerCase();
@@ -311,19 +210,15 @@ function badge(text){
   return `<span class='pill blue'>${text}</span>`;
 }
 
+// --- LOGIC HIỂN THỊ MỚI (GIỮ NGUYÊN THỨ TỰ SHEET) ---
 function renderBoardFor(cat){
   const tbody = document.querySelector('#board-main tbody');
   const titlebar = document.querySelector('#board-main .titlebar');
   titlebar.textContent = cat;
-
-  // chuẩn hóa key cần tìm
   const key = cat.toLowerCase().trim();
 
-  // lọc theo danh_muc (đã lowerCase + trim khoảng trắng)
-  const rows = ALL_ROWS.filter(x => {
-    const dm = (x.danh_muc || '').toLowerCase().trim();
-    return dm === key;
-  });
+  // Lọc dữ liệu
+  const rows = ALL_ROWS.filter(x => (x.danh_muc || '').toLowerCase().trim() === key);
 
   if(!rows.length){
     tbody.innerHTML = `<tr><td colspan="3">Chưa có dữ liệu cho danh mục này.</td></tr>`;
@@ -331,15 +226,20 @@ function renderBoardFor(cat){
   }
 
   const groups = {};
+  const groupOrder = []; // Mảng lưu thứ tự xuất hiện
+
   rows.forEach(r=>{
     const g = (r.dong_san_pham || 'Khác').trim();
-    if(!groups[g]) groups[g]=[];
+    if(!groups[g]) {
+        groups[g]=[];
+        groupOrder.push(g); // Lưu thứ tự khi mới gặp lần đầu
+    }
     groups[g].push(r);
   });
-  const ordered = Object.keys(groups).sort((a,b)=>a.localeCompare(b,'vi',{sensitivity:'base'}));
 
   let html = '';
-  ordered.forEach(g=>{
+  // Duyệt theo đúng thứ tự đã lưu từ Sheet
+  groupOrder.forEach(g=>{
     html += `<tr class='groupname'><td colspan='3'>${g}</td></tr>`;
     groups[g].forEach(r=>{
       html += `<tr>
@@ -352,7 +252,6 @@ function renderBoardFor(cat){
   tbody.innerHTML = html;
 }
 
-
 function setupTabs(){
   const container = document.querySelector('.tabs');
   container.innerHTML = CATS.map((cat,idx)=>`
@@ -363,75 +262,47 @@ function setupTabs(){
     btn.addEventListener('click', ()=>{
       const cat = btn.dataset.cat;
       CURRENT_CAT = cat;
-
-      container.querySelectorAll('.tab-btn').forEach(b=>{
-        b.classList.toggle('active', b === btn);
-      });
-
+      container.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active', b === btn));
       renderBoardFor(cat);
     });
   });
 }
 
 async function boot(){
-  // text "đang tải" tạm
-  document.querySelector('#board-main tbody').innerHTML =
-    `<tr><td colspan="3">Đang tải dữ liệu…</td></tr>`;
-
+  document.querySelector('#board-main tbody').innerHTML = `<tr><td colspan="3">Đang tải dữ liệu…</td></tr>`;
   try{
     ALL_ROWS = await fetchAll(URL_ALL);
     setupTabs();
     renderBoardFor(CURRENT_CAT);
   }catch(e){
     console.error(e);
-    document.querySelector('#board-main tbody').innerHTML =
-      `<tr><td colspan="3">Không tải được dữ liệu, bạn F5 lại giúp mình nha.</td></tr>`;
+    document.querySelector('#board-main tbody').innerHTML = `<tr><td colspan="3">Không tải được dữ liệu, bạn F5 lại giúp mình nha.</td></tr>`;
   }
 }
-
 window.addEventListener('DOMContentLoaded',boot);
 </script>
 </head>
 
 <body>
   <header class="wrap">
-    <div class="title">Cái tiệm bán táo <span class="subtitle-small">by Tina House</span></div>
- <!-- ⭐ FORM LIÊN HỆ GỌN -->
-<div class="contact-box">
-  <div class="contact-title">📞 Liên hệ nhanh</div>
-
-  <div class="contact-info">
-    <div><strong>SĐT:</strong> 
-      <a href="tel:0923453003">0923453003</a>
+    <div class="title-area">
+       <div class="title">Cái tiệm bán táo <span class="subtitle-small">by Tina House</span></div>
     </div>
 
-    <div><strong>Zalo:</strong>
-      <a href="https://zalo.me/0923453003" target="_blank">0923453003</a>
+    <div class="contact-box">
+      <div class="contact-title">📞 Liên hệ nhanh</div>
+      <div class="contact-info">
+        <div><strong>SĐT:</strong> <a href="tel:0923453003">0923453003</a></div>
+        <div><strong>Zalo:</strong> <a href="https://zalo.me/0923453003" target="_blank">0923453003</a></div>
+        <div><strong>Telegram:</strong> <a href="https://t.me/thaisophie" target="_blank">@thaisophie</a></div>
+        <div><strong>Facebook:</strong> <a href="https://www.facebook.com/people/Cái-Tiệm-Bán-Táo/61550756556069/" target="_blank">fb.com/caitiembantao</a></div>
+      </div>
     </div>
-
-    <div><strong>Telegram:</strong>
-      <a href="https://t.me/thaisophie" target="_blank">@thaisophie</a>
-    </div>
-
-    <div><strong>Facebook Page:</strong>
-      <a href="https://www.facebook.com/people/Cái-Tiệm-Bán-Táo/61550756556069/" target="_blank">
-        fb.com/caitiembantao
-      </a>
-    </div>
-  </div>
-</div>
-<!-- ⭐ END FORM LIÊN HỆ -->
-
   </header>
 
   <main class="wrap">
+    <div class="tabs"></div>
 
-    <!-- ✅ Thanh chọn danh mục -->
-    <div class="tabs">
-      <!-- JS sẽ tự fill 6 nút từ mảng CATS -->
-    </div>
-
-    <!-- ✅ Chỉ còn 1 card, nội dung thay đổi theo tab -->
     <div class="card" id="board-main">
       <div class="titlebar">AirPods</div>
       <div class="table-wrap">
@@ -443,13 +314,10 @@ window.addEventListener('DOMContentLoaded',boot);
               <th>Ghi chú</th>
             </tr>
           </thead>
-          <tbody>
-            <!-- JS render -->
-          </tbody>
+          <tbody></tbody>
         </table>
       </div>
     </div>
-
   </main>
 </body>
 </html>
