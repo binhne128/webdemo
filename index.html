@@ -7,7 +7,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;700&display=swap" rel="stylesheet">
 
-<link rel="icon" type="image/jpeg" href="Logo.jpeg" />
+<link rel="icon" type="image/jpeg" href="Logo.jpeg" style="border-radius: 50%;" />
 
 <style>
   :root{
@@ -47,7 +47,6 @@
     height: 55px; /* Chiều cao trên máy tính */
     width: auto;
     border-radius: 8px; 
-    /* Đã xóa viền và nền trắng để logo thoáng hơn */
     box-shadow: 0 2px 5px rgba(18, 183, 255, 0.2); 
     object-fit: contain;
   }
@@ -119,17 +118,12 @@
     min-width:55px; text-align:center;
   }
 
-  /* ⭐ MOBILE RESPONSIVE (Chỉnh sửa cho điện thoại) */
+  /* ⭐ MOBILE RESPONSIVE */
   @media (max-width:640px){
     .wrap{padding:12px 10px;}
-    
-    /* Logo 45px cho cân đối */
     .logo-img { height: 45px; } 
-    
-    /* Chữ tiêu đề 22px để rõ ràng */
     .title { font-size: 22px; }
     .title-area { gap: 10px; }
-
     table{font-size:13px;}
     th,td{ padding:8px 4px; white-space:nowrap; }
     td:first-child{ white-space:normal; word-break:break-word; }
@@ -187,9 +181,7 @@ function mapHeaderVN(h){
 }
 
 async function fetchAll(url){
-  // Thêm timestamp để tránh Cache (bắt buộc tải mới)
   const noCacheUrl = url + "&t=" + Date.now();
-  
   const res=await fetch(noCacheUrl,{cache:'no-store'});
   if(!res.ok) throw new Error('HTTP '+res.status);
   const text=await res.text();
@@ -269,7 +261,6 @@ function setupTabs(){
   });
 }
 
-// HÀM TỰ ĐỘNG CẬP NHẬT (CHẠY NGẦM 60s/lần)
 async function autoUpdateSilent(){
   const statusEl = document.querySelector('.status-text');
   try {
@@ -288,10 +279,7 @@ async function boot(){
     ALL_ROWS = await fetchAll(URL_ALL);
     setupTabs();
     renderBoardFor(CURRENT_CAT);
-    
-    // Tự cập nhật mỗi 60 giây
     TIMER = setInterval(autoUpdateSilent, 60000);
-    
   }catch(e){
     console.error(e);
     document.querySelector('#board-main tbody').innerHTML = `<tr><td colspan="3">Không tải được dữ liệu, bạn F5 lại giúp mình nha.</td></tr>`;
