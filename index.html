@@ -7,7 +7,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;700&display=swap" rel="stylesheet">
 
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjEwMCIgZmlsbD0iIzlEQ0VGMSIvPjxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0yNTYgNjRMMzIgMjU2aDQ4djE5MmgyMDB2LTk2aDY0djk2aDEzNlYyNTZoNDhMMjU2IDY0em0tMjAgMjY4Yy0yMiAwLTQwLTE4LTQwLTQwczE4LTQwIDQwLTQwIDQwIDE4IDQwIDQwLTE4IDQwLTQwIDQwem0wLTIwMGMtNDQgMC04MCAzNi04MCA4MHMzNiA4MCA4MCA4MCA4MC0zNiA4MC04MC0zNi04MC04MC04MHoiLz48cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNMzA3LjcgMjQ4LjdjLS4xLTI1LjYgMTEuNC00NC45IDM0LjktNTkuMS0xMy4xLTE4LjgtMzIuOS0yOS4xLTU5LTMxLjEtMjQuOC0yLTUxLjggMTQuNC02MS43IDE0LjQtMTAuNSAwLTM0LjQtMTMuNy01My4zLTEzLjctNDQuMSAwLTg1LjQgMzAuNC04NS40IDkyLjMgMCAyNy40IDEwIDU2LjYgNDEuMSA4Ny4zIDguOSAyNS42IDQxLjEgODguMyA3NC43IDg3LjMgMTcuNi0uNCAzMC0xMi41IDUyLjgtMTIuNSAyMi4yIDAgMzMuNyAxMi41IDUzLjMgMTIuNSAzMy45LS41IDYzLTI5LjQgNzEuNS04My4yLTQ1LjUtMjEuNC00My02Mi43LTQzLTY0LjF6bS0zOS41LTExNC41YzE5LTIyLjYgMTcuMy00My4xIDE2LjctNTAuNS0xNi44IDEtMzYuMiAxMS40LTQ3LjMgMjQuMy0xMi4yIDEzLjgtMTkuNCAzMC45LTE3LjggNTAuMSAxOC4yIDEuNCAzNi40LTguMiA0OC40LTIzLjl6Ii8+PC9zdmc+" />
+<link rel="icon" type="image/png" href="Logo.png" />
 
 <style>
   :root{
@@ -42,12 +42,16 @@
   }
   .title-area { display: flex; align-items: center; gap: 12px; }
   
-  /* ⭐ LOGO STYLE - Chỉnh sửa để logo đẹp hơn */
+  /* ⭐ LOGO STYLE */
   .logo-img {
-    height: 50px; /* Tăng kích thước logo lên một chút cho rõ */
+    height: 55px; /* Tăng kích thước logo lên xíu cho rõ */
     width: auto;
-    border-radius: 10px; /* Bo góc mềm mại giống icon App */
-    box-shadow: 0 2px 5px rgba(137, 196, 244, 0.4); /* Đổ bóng nhẹ màu xanh */
+    border-radius: 12px; 
+    /* Viền trắng mỏng để tách biệt logo với nền xanh */
+    border: 2px solid #fff; 
+    box-shadow: 0 4px 6px rgba(18, 183, 255, 0.2); 
+    background: #fff; /* Nền trắng để logo nổi bật */
+    object-fit: contain;
   }
 
   .title{
@@ -295,7 +299,7 @@ window.addEventListener('DOMContentLoaded',boot);
   <header class="wrap">
     <div class="title-area">
        <img 
-         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjEwMCIgZmlsbD0iIzlEQ0VGMSIvPjxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0yNTYgNjRMMzIgMjU2aDQ4djE5MmgyMDB2LTk2aDY0djk2aDEzNlYyNTZoNDhMMjU2IDY0em0tMjAgMjY4Yy0yMiAwLTQwLTE4LTQwLTQwczE4LTQwIDQwLTQwIDQwIDE4IDQwIDQwLTE4IDQwLTQwIDQwem0wLTIwMGMtNDQgMC04MCAzNi04MCA4MHMzNiA4MCA4MCA4MCA4MC0zNiA4MC04MC0zNi04MC04MC04MHoiLz48cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNMzA3LjcgMjQ4LjdjLS4xLTI1LjYgMTEuNC00NC45IDM0LjktNTkuMS0xMy4xLTE4LjgtMzIuOS0yOS4xLTU5LTMxLjEtMjQuOC0yLTUxLjggMTQuNC02MS43IDE0LjQtMTAuNSAwLTM0LjQtMTMuNy01My4zLTEzLjctNDQuMSAwLTg1LjQgMzAuNC04NS40IDkyLjMgMCAyNy40IDEwIDU2LjYgNDEuMSA4Ny4zIDguOSAyNS42IDQxLjEgODguMyA3NC43IDg3LjMgMTcuNi0uNCAzMC0xMi41IDUyLjgtMTIuNSAyMi4yIDAgMzMuNyAxMi41IDUzLjMgMTIuNSAzMy45LS41IDYzLTI5LjQgNzEuNS04My4yLTQ1LjUtMjEuNC00My02Mi43LTQzLTY0LjF6bS0zOS41LTExNC41YzE5LTIyLjYgMTcuMy00My4xIDE2LjctNTAuNS0xNi44IDEtMzYuMiAxMS40LTQ3LjMgMjQuMy0xMi4yIDEzLjgtMTkuNCAzMC45LTE3LjggNTAuMSAxOC4yIDEuNCAzNi40LTguMiA0OC40LTIzLjl6Ii8+PC9zdmc+" 
+         src="Logo.png" 
          alt="Logo Cái Tiệm Bán Táo" 
          class="logo-img" 
        />
