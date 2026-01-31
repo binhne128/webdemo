@@ -42,25 +42,28 @@
   }
   .title-area { display: flex; align-items: center; gap: 12px; }
   
-  /* ⭐ LOGO STYLE */
+  /* ⭐ LOGO STYLE (Đã chỉnh sửa) */
   .logo-img {
-    height: 55px; /* Tăng kích thước logo lên xíu cho rõ */
+    height: 50px; /* Chiều cao mặc định trên máy tính */
     width: auto;
-    border-radius: 12px; 
-    /* Viền trắng mỏng để tách biệt logo với nền xanh */
-    border: 2px solid #fff; 
-    box-shadow: 0 4px 6px rgba(18, 183, 255, 0.2); 
-    background: #fff; /* Nền trắng để logo nổi bật */
+    border-radius: 8px; 
+    /* Đã xóa border và background trắng theo ý bạn */
+    /* border: 2px solid #fff; */
+    /* background: #fff; */
+    
+    /* Giữ lại bóng nhẹ cho đẹp, hoặc xóa dòng dưới nếu muốn phẳng hoàn toàn */
+    box-shadow: 0 2px 5px rgba(18, 183, 255, 0.2); 
     object-fit: contain;
   }
 
   .title{
     font-family: 'Comfortaa', system-ui, sans-serif;
     font-weight:700; font-size:24px; color:#8dc4ef;
+    line-height: 1.2;
   }
   .subtitle-small{
-    font-size:60%; font-weight:600; opacity:.9;
-    margin-left:1.5px; letter-spacing:-.2px; position:relative; top:-.5px;
+    font-size:65%; font-weight:600; opacity:.9;
+    margin-left:2px; letter-spacing:-.2px; display:inline-block;
   }
 
   /* TABS */
@@ -120,9 +123,17 @@
     min-width:55px; text-align:center;
   }
 
-  /* Mobile */
+  /* ⭐ MOBILE RESPONSIVE (Chỉnh sửa riêng cho điện thoại) */
   @media (max-width:640px){
     .wrap{padding:12px 10px;}
+    
+    /* Logo nhỏ lại trên mobile */
+    .logo-img { height: 35px; } 
+    
+    /* Chữ nhỏ lại xíu để không bị rớt dòng */
+    .title { font-size: 19px; }
+    .title-area { gap: 8px; }
+
     table{font-size:13px;}
     th,td{ padding:8px 4px; white-space:nowrap; }
     td:first-child{ white-space:normal; word-break:break-word; }
