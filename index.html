@@ -7,6 +7,8 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;700&display=swap" rel="stylesheet">
 
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzODQgNTEyIiBmaWxsPSIjMTJCN0ZGIj48IS0tIFVzZWQgRm9udCBBd2Vzb21lIEZyZWUgLS0+PHBhdGggZD0iTTMxOC43IDI2OC43Yy0uMi0zNi43IDE2LjQtNjQuNCA1MC04NC44LTE4LjgtMjYuOS00Ny4yLTQxLjctODQuNy00NC42LTM1LjUtMi44LTc0LjMgMjAuNy04OC41IDIwLjctMTUgMC00OS40LTE5LjctNzYuNC0xOS43QzYzLjMgMTQxLjIgNCAxODQuOCA0IDI3My41cTAgMzkuMyAxNC40IDgxLjJjMTIuOCAzNi43IDU5IDEyNi43IDEwNy4yIDEyNS4yIDI1LjItLjYgNDMtMTcuOSA3NS44LTE3LjkgMzEuOCAwIDQ4LjMgMTcuOSA3Ni40IDE3LjkgNDguNi0uNyA5MC40LTgyLjUgMTAyLjYtMTE5LjMtNjUuMi0zMC43LTYxLjctOTAtNjEuNy05MS45em0tNTYuNi0xNjQuMmMyNy4zLTMyLjQgMjQuOC02MS45IDI0LTcyLjUtMjQuMSAxLjQtNTIgMTYuNC02Ny45IDM0LjktMTcuNSAxOS44LTI3LjggNDQuMy0yNS42IDcxLjkgMjYuMSAyIDUyLjMtMTEuNCA2OS41LTM0LjN6Ii8+PC9zdmc+" />
+
 <style>
   :root{
     --brand: #12B7FF;
@@ -26,87 +28,74 @@
   }
   *{box-sizing:border-box}
   body{
-    margin:0;
-    font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-    color:var(--text);
-    background:var(--bg);
-    overflow-x:hidden;
+    margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    color:var(--text); background:var(--bg); overflow-x:hidden;
   }
   .wrap{max-width:1200px; margin:0 auto; padding:14px 16px}
 
   /* HEADER */
   header{
     position:sticky; top:0; z-index:10;
-    background:var(--header-bg);
-    color:var(--header-text);
+    background:var(--header-bg); color:var(--header-text);
     border-bottom:1px solid var(--border);
     box-shadow:0 2px 6px rgba(0,0,0,0.04);
   }
-  .title-area {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  .title-area { display: flex; align-items: center; gap: 12px; }
+  
+  /* ⭐ LOGO STYLE */
+  .logo-img {
+    height: 38px;
+    width: auto;
+    /* Hiệu ứng bóng nhẹ cho logo nổi bật */
+    filter: drop-shadow(0 2px 3px rgba(18, 183, 255, 0.2)); 
   }
+
   .title{
     font-family: 'Comfortaa', system-ui, sans-serif;
-    font-weight:700;
-    font-size:24px;
-    color:#8dc4ef;
+    font-weight:700; font-size:24px; color:#8dc4ef;
   }
   .subtitle-small{
     font-size:60%; font-weight:600; opacity:.9;
-    margin-left:1.5px; letter-spacing:-.2px;
-    position:relative; top:-.5px;
+    margin-left:1.5px; letter-spacing:-.2px; position:relative; top:-.5px;
   }
 
   /* TABS */
-  .tabs{
-    margin-top:14px; margin-bottom:14px;
-    display:flex; flex-wrap:wrap; gap:8px;
-  }
+  .tabs{ margin-top:14px; margin-bottom:14px; display:flex; flex-wrap:wrap; gap:8px; }
   .tab-btn{
     border:none; outline:none; cursor:pointer;
     padding:8px 18px; border-radius:999px;
     background:#ffffff; color:#082947;
     font-weight:700; font-size:14px;
-    box-shadow:0 0 0 1px var(--border);
-    transition:all .15s ease;
+    box-shadow:0 0 0 1px var(--border); transition:all .15s ease;
   }
   .tab-btn:hover{ box-shadow:0 0 0 1px var(--brand-dark); }
-  .tab-btn.active{
-    background:#123f9d; color:#ffffff; box-shadow:none;
-  }
+  .tab-btn.active{ background:#123f9d; color:#ffffff; box-shadow:none; }
 
   /* BẢNG GIÁ */
   .card{
-    background:#fff;
-    border:1.5px solid var(--border);
-    border-radius:14px;
-    overflow:hidden;
-    box-shadow:var(--shadow-card);
+    background:#fff; border:1.5px solid var(--border);
+    border-radius:14px; overflow:hidden; box-shadow:var(--shadow-card);
   }
   .card .titlebar{
-    background:var(--card-titlebar);
-    padding:10px 16px; font-weight:800;
-    border-bottom:1px solid var(--border);
-    color:var(--brand-dark);
+    background:var(--card-titlebar); padding:10px 16px; font-weight:800;
+    border-bottom:1px solid var(--border); color:var(--brand-dark);
+    display:flex; justify-content:space-between; align-items:center;
   }
-  .table-wrap{ overflow-x:hidden; overflow-y:auto; }
+  @keyframes flash { 0%{opacity:1} 50%{opacity:0.5} 100%{opacity:1} }
+  .updating .table-wrap { animation: flash 0.5s ease; }
+
+  .table-wrap{ overflow-x:hidden; overflow-y:auto; transition: opacity 0.3s; }
   table{ width:100%; border-collapse:collapse; font-size:14px; table-layout:fixed; }
   th,td{
     padding:10px 8px; border-bottom:1px solid var(--border);
     text-align:left; white-space:nowrap;
   }
   th{font-weight:800}
-  td.price{
-    text-align:center; font-variant-numeric:tabular-nums; white-space:nowrap;
-  }
+  td.price{ text-align:center; font-variant-numeric:tabular-nums; white-space:nowrap; }
   tbody tr:hover{background:var(--hover)}
   
   /* Nhóm sản phẩm */
-  tbody tr.groupname td{
-    background:#f9fcff; font-weight:900; font-size:15px; color:#082947;
-  }
+  tbody tr.groupname td{ background:#f9fcff; font-weight:900; font-size:15px; color:#082947; }
 
   /* Nhãn (Mới, Còn hàng...) */
   .pill{
@@ -146,19 +135,21 @@
   .contact-info{ font-size:14px; line-height:1.55; }
   .contact-info a{ color:#0B8ED1; font-weight:700; text-decoration:none; }
   .contact-info a:hover{ text-decoration:underline; }
+  
+  .status-text { font-size: 11px; font-weight: normal; opacity: 0.7; color: #54647a; }
 </style>
 
 <script>
-// LINK GOOGLE SHEET CỦA BẠN (CSV)
+// LINK GOOGLE SHEET (CSV)
 const URL_ALL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vScB3O9RHORztA1jt0R9IU74vKx19WcpMgh_N6eOU2uKcmczj44re7jb7KqF4Acz-gwCIgPNK3THJlF/pub?output=csv";
 
-// DANH SÁCH DANH MỤC (TABS)
+// DANH SÁCH DANH MỤC
 const CATS = ["AirPods", "iPad", "iPhone", "MacBook", "Pencil", "Apple Watch", "Loa", "Phụ kiện"];
 
 let ALL_ROWS = [];
 let CURRENT_CAT = "AirPods";
+let TIMER = null; 
 
-// Hàm đọc CSV thủ công (để không cần thư viện ngoài)
 function parseCSV(text){
   const rows=[]; let i=0, field='', row=[], inQuotes=false;
   while(i<text.length){
@@ -178,7 +169,6 @@ function parseCSV(text){
   return rows;
 }
 
-// Chuẩn hóa tên cột để tránh lỗi đánh máy
 function mapHeaderVN(h){
   const key=(h||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'');
   const map={'danh_muc':'danh_muc','dong_san_pham':'dong_san_pham','ten_san_pham':'ten_san_pham','don_gia_vnd':'don_gia_vnd','ghi_chu':'ghi_chu'};
@@ -186,7 +176,10 @@ function mapHeaderVN(h){
 }
 
 async function fetchAll(url){
-  const res=await fetch(url,{cache:'no-store'});
+  // Thêm timestamp để tránh Cache (bắt buộc tải mới)
+  const noCacheUrl = url + "&t=" + Date.now();
+  
+  const res=await fetch(noCacheUrl,{cache:'no-store'});
   if(!res.ok) throw new Error('HTTP '+res.status);
   const text=await res.text();
   const rows=parseCSV(text);
@@ -210,14 +203,12 @@ function badge(text){
   return `<span class='pill blue'>${text}</span>`;
 }
 
-// --- LOGIC HIỂN THỊ MỚI (GIỮ NGUYÊN THỨ TỰ SHEET) ---
 function renderBoardFor(cat){
   const tbody = document.querySelector('#board-main tbody');
-  const titlebar = document.querySelector('#board-main .titlebar');
-  titlebar.textContent = cat;
+  const titlebarText = document.querySelector('#board-main .titlebar .cat-name');
+  titlebarText.textContent = cat;
   const key = cat.toLowerCase().trim();
 
-  // Lọc dữ liệu
   const rows = ALL_ROWS.filter(x => (x.danh_muc || '').toLowerCase().trim() === key);
 
   if(!rows.length){
@@ -226,19 +217,18 @@ function renderBoardFor(cat){
   }
 
   const groups = {};
-  const groupOrder = []; // Mảng lưu thứ tự xuất hiện
+  const groupOrder = [];
 
   rows.forEach(r=>{
     const g = (r.dong_san_pham || 'Khác').trim();
     if(!groups[g]) {
         groups[g]=[];
-        groupOrder.push(g); // Lưu thứ tự khi mới gặp lần đầu
+        groupOrder.push(g);
     }
     groups[g].push(r);
   });
 
   let html = '';
-  // Duyệt theo đúng thứ tự đã lưu từ Sheet
   groupOrder.forEach(g=>{
     html += `<tr class='groupname'><td colspan='3'>${g}</td></tr>`;
     groups[g].forEach(r=>{
@@ -268,17 +258,35 @@ function setupTabs(){
   });
 }
 
+// HÀM TỰ ĐỘNG CẬP NHẬT (CHẠY NGẦM 60s/lần)
+async function autoUpdateSilent(){
+  const statusEl = document.querySelector('.status-text');
+  try {
+    const newRows = await fetchAll(URL_ALL);
+    ALL_ROWS = newRows;
+    renderBoardFor(CURRENT_CAT);
+    if(statusEl) statusEl.textContent = "Cập nhật: " + new Date().toLocaleTimeString('vi-VN');
+  } catch(e) {
+    console.log("Lỗi cập nhật ngầm: " + e);
+  }
+}
+
 async function boot(){
   document.querySelector('#board-main tbody').innerHTML = `<tr><td colspan="3">Đang tải dữ liệu…</td></tr>`;
   try{
     ALL_ROWS = await fetchAll(URL_ALL);
     setupTabs();
     renderBoardFor(CURRENT_CAT);
+    
+    // Tự cập nhật mỗi 60 giây
+    TIMER = setInterval(autoUpdateSilent, 60000);
+    
   }catch(e){
     console.error(e);
     document.querySelector('#board-main tbody').innerHTML = `<tr><td colspan="3">Không tải được dữ liệu, bạn F5 lại giúp mình nha.</td></tr>`;
   }
 }
+
 window.addEventListener('DOMContentLoaded',boot);
 </script>
 </head>
@@ -286,6 +294,12 @@ window.addEventListener('DOMContentLoaded',boot);
 <body>
   <header class="wrap">
     <div class="title-area">
+       <img 
+         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzODQgNTEyIiBmaWxsPSIjMTJCN0ZGIj48IS0tIFVzZWQgRm9udCBBd2Vzb21lIEZyZWUgLS0+PHBhdGggZD0iTTMxOC43IDI2OC43Yy0uMi0zNi43IDE2LjQtNjQuNCA1MC04NC44LTE4LjgtMjYuOS00Ny4yLTQxLjctODQuNy00NC42LTM1LjUtMi44LTc0LjMgMjAuNy04OC41IDIwLjctMTUgMC00OS40LTE5LjctNzYuNC0xOS43QzYzLjMgMTQxLjIgNCAxODQuOCA0IDI3My41cTAgMzkuMyAxNC40IDgxLjJjMTIuOCAzNi43IDU5IDEyNi43IDEwNy4yIDEyNS4yIDI1LjItLjYgNDMtMTcuOSA3NS44LTE3LjkgMzEuOCAwIDQ4LjMgMTcuOSA3Ni40IDE3LjkgNDguNi0uNyA5MC40LTgyLjUgMTAyLjYtMTE5LjMtNjUuMi0zMC43LTYxLjctOTAtNjEuNy05MS45em0tNTYuNi0xNjQuMmMyNy4zLTMyLjQgMjQuOC02MS45IDI0LTcyLjUtMjQuMSAxLjQtNTIgMTYuNC02Ny45IDM0LjktMTcuNSAxOS44LTI3LjggNDQuMy0yNS42IDcxLjkgMjYuMSAyIDUyLjMtMTEuNCA2OS41LTM0LjN6Ii8+PC9zdmc+" 
+         alt="Logo Cái Tiệm Bán Táo" 
+         class="logo-img" 
+       />
+       
        <div class="title">Cái tiệm bán táo <span class="subtitle-small">by Tina House</span></div>
     </div>
 
@@ -302,9 +316,11 @@ window.addEventListener('DOMContentLoaded',boot);
 
   <main class="wrap">
     <div class="tabs"></div>
-
     <div class="card" id="board-main">
-      <div class="titlebar">AirPods</div>
+      <div class="titlebar">
+        <span class="cat-name">AirPods</span>
+        <span class="status-text"></span>
+      </div>
       <div class="table-wrap">
         <table>
           <thead>
