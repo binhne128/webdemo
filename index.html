@@ -42,16 +42,12 @@
   }
   .title-area { display: flex; align-items: center; gap: 12px; }
   
-  /* ⭐ LOGO STYLE (Đã chỉnh sửa) */
+  /* ⭐ LOGO STYLE - Đã xóa viền trắng */
   .logo-img {
-    height: 50px; /* Chiều cao mặc định trên máy tính */
+    height: 55px; /* Mặc định trên máy tính */
     width: auto;
     border-radius: 8px; 
-    /* Đã xóa border và background trắng theo ý bạn */
-    /* border: 2px solid #fff; */
-    /* background: #fff; */
-    
-    /* Giữ lại bóng nhẹ cho đẹp, hoặc xóa dòng dưới nếu muốn phẳng hoàn toàn */
+    /* Đã xóa border trắng */
     box-shadow: 0 2px 5px rgba(18, 183, 255, 0.2); 
     object-fit: contain;
   }
@@ -123,16 +119,16 @@
     min-width:55px; text-align:center;
   }
 
-  /* ⭐ MOBILE RESPONSIVE (Chỉnh sửa riêng cho điện thoại) */
+  /* ⭐ MOBILE RESPONSIVE (Đã chỉnh sửa theo yêu cầu) */
   @media (max-width:640px){
     .wrap{padding:12px 10px;}
     
-    /* Logo nhỏ lại trên mobile */
-    .logo-img { height: 35px; } 
+    /* Logo to hơn: 45px */
+    .logo-img { height: 45px; } 
     
-    /* Chữ nhỏ lại xíu để không bị rớt dòng */
-    .title { font-size: 19px; }
-    .title-area { gap: 8px; }
+    /* Chữ to lại bình thường: 22px */
+    .title { font-size: 22px; }
+    .title-area { gap: 10px; }
 
     table{font-size:13px;}
     th,td{ padding:8px 4px; white-space:nowrap; }
